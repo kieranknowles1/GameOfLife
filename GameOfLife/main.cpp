@@ -3,9 +3,17 @@
 
 #include <iostream>
 
+#include "CommandParser.h"
+#include "Controller.h"
+
 int main()
 {
-    std::cout << "Hello World!\n";
+    GameOfLife::CommandParser parser;
+    GameOfLife::registerDefaultCommands(parser);
+
+    GameOfLife::Controller controller(parser);
+
+    controller.run();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
