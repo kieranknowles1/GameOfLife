@@ -1,16 +1,36 @@
 #include "IterateCommand.h"
 
+#include <sstream>
+#include <iostream>
+
 #include "Controller.h"
 
 namespace GameOfLife {
 	IterateCommand::IterateCommand(std::string_view args)
 	{
-		// Parse the number of iterations from the arguments
-		iterations = 1;
-		if (!args.empty())
+		if (args.empty())
 		{
-			// Throws if the string is not a valid number
-			iterations = std::stoi(std::string(args));
+			mIterations = 1;
+			mLoud = false;
+			return;
+		}
+
+		std::stringstream stream(args.data());
+
+		stream >> mIterations;
+		if (stream.fail())
+		{
+			throw std::invalid_argument("Invalid number of iterations");
+		}
+
+		// Only look if there is a space in the string
+		if (args.find(' ') != std::string::npos)
+		{
+			stream >> std::boolalpha >> mLoud;
+			if (stream.fail())
+			{
+				throw std::invalid_argument("Invalid loud flag");
+			}
 		}
 	}
 
@@ -23,9 +43,13 @@ namespace GameOfLife {
 			throw std::runtime_error("No board loaded");
 		}
 
-		for (int i = 0; i < iterations; i++)
+		for (int i = 0; i < mIterations; i++)
 		{
 			board->iterate();
+			if (mLoud)
+			{
+				std::cout << board->toString() << std::endl;
+			}
 		}
 	}
 }
