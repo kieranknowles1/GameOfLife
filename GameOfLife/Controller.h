@@ -26,6 +26,6 @@ namespace GameOfLife
 		CommandParser mParser;
 		bool mQuitRequested = false;
 		// TODO: Use smart pointers everywhere
-		Command* parseInput();
+		std::unique_ptr<Command> parseInput();
 	};
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 namespace GameOfLife
 {
@@ -23,7 +24,7 @@ namespace GameOfLife
 		// Construct a command from the given input
 		// input will be the entire string after the command identifier,
 		// or an empty string if there are no arguments
-		virtual Command* create(std::string_view input) = 0;
+		virtual std::unique_ptr<Command> create(std::string_view input) = 0;
 
 		// Get the identifier for the command e.g., "help"
 		virtual std::string_view getIdentifier() const = 0;
@@ -37,8 +38,8 @@ namespace GameOfLife
 	// By using templates, the compiler can generate the correct implementation for each command with no work on our part
 	template <typename T>
 	class CommandFactoryImpl : public CommandFactory {
-		Command* create(std::string_view input) override {
-			return new T(input);
+		std::unique_ptr<Command> create(std::string_view input) override {
+			return std::make_unique<T>(input);
 		}
 
 		std::string_view getIdentifier() const override {

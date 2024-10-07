@@ -27,7 +27,7 @@ namespace GameOfLife
 	public:
 		using Factories = std::map<std::string, CommandFactory*>;
 
-		Command* parseInput(std::string_view input);
+		std::unique_ptr<Command> parseInput(std::string_view input);
 
 		void registerFactory(CommandFactory* factory);
 		const Factories& getFactories() const { return mFactories; }

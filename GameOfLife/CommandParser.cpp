@@ -12,7 +12,7 @@ namespace GameOfLife {
 		parser.registerFactory(new CommandFactoryImpl<QuitCommand>());
 	}
 
-	Command* CommandParser::parseInput(std::string_view input)
+	std::unique_ptr<Command> CommandParser::parseInput(std::string_view input)
 	{
 		auto space = input.find(' ');
 		if (space == std::string_view::npos) space = input.size();

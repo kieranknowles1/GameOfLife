@@ -8,7 +8,7 @@ namespace GameOfLife
 	{
 		while (!mQuitRequested)
 		{
-			Command* input = nullptr;
+			std::unique_ptr<Command> input = nullptr;
 			try {
 				input = parseInput();
 			}
@@ -20,11 +20,15 @@ namespace GameOfLife
 			}
 
 			// Input is not null, as we continued in the catch block
-			input->execute(this);
+			try {
+				input->execute(this);
+			} catch (std::exception& e) {
+				std::cerr << "An error occurred: " << e.what() << std::endl;
+			}
 		}
 	}
 
-	Command* Controller::parseInput()
+	std::unique_ptr<Command> Controller::parseInput()
 	{
 		std::cout << "Enter a command, or type 'help' for a list of commands" << std::endl;
 		std::string line;
