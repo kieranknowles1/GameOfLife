@@ -10,8 +10,8 @@ namespace GameOfLife
 	class Controller
 	{
 	public:
-		Controller(CommandParser* parser) :
-			mParser(parser),
+		Controller(std::unique_ptr<CommandParser> parser) :
+			mParser(std::move(parser)),
 			mQuitRequested(false)
 		{}
 
@@ -21,9 +21,10 @@ namespace GameOfLife
 		// Request the controller to quit at the next opportunity
 		void requestQuit() { mQuitRequested = true; }
 
-		CommandParser* getParser() { return mParser; }
+		// .get() returns a non-owning pointer, similar to borrowing in Rust
+		CommandParser* getParser() { return mParser.get(); }
 	private:
-		CommandParser* mParser;
+		std::unique_ptr<CommandParser> mParser;
 		bool mQuitRequested = false;
 		// TODO: Use smart pointers everywhere
 		std::unique_ptr<Command> parseInput();

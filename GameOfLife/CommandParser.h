@@ -29,6 +29,8 @@ namespace GameOfLife
 		// Disallow copying
 		CommandParser(const CommandParser&) = delete;
 
+		~CommandParser();
+
 		using Factories = std::map<std::string, CommandFactory*>;
 
 		std::unique_ptr<Command> parseInput(std::string_view input);

@@ -12,6 +12,14 @@ namespace GameOfLife {
 		parser->registerFactory(new CommandFactoryImpl<QuitCommand>());
 	}
 
+	CommandParser::~CommandParser()
+	{
+		for (auto& factory : mFactories)
+		{
+			delete factory.second;
+		}
+	}
+
 	std::unique_ptr<Command> CommandParser::parseInput(std::string_view input)
 	{
 		auto space = input.find(' ');
