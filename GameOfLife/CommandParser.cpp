@@ -6,10 +6,10 @@
 #include "QuitCommand.h"
 
 namespace GameOfLife {
-	void registerDefaultCommands(CommandParser& parser)
+	void registerDefaultCommands(CommandParser* parser)
 	{
-		parser.registerFactory(new CommandFactoryImpl<HelpCommand>());
-		parser.registerFactory(new CommandFactoryImpl<QuitCommand>());
+		parser->registerFactory(new CommandFactoryImpl<HelpCommand>());
+		parser->registerFactory(new CommandFactoryImpl<QuitCommand>());
 	}
 
 	std::unique_ptr<Command> CommandParser::parseInput(std::string_view input)

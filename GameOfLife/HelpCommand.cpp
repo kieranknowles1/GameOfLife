@@ -12,19 +12,19 @@ namespace GameOfLife {
 	// TODO: Implement
 	void HelpCommand::execute(Controller* context)
 	{
-		auto& parser = context->getParser();
+		auto parser = context->getParser();
 
 		if (mCommand.empty())
 		{
 			std::cout << "Available commands:" << std::endl;
-			for (const auto& factory : parser.getFactories())
+			for (const auto& factory : parser->getFactories())
 			{
 				std::cout << "  " << factory.first << " - " << factory.second->getSummary() << std::endl;
 			}
 		}
 		else
 		{
-			std::cout << parser.getFactory(mCommand)->getUsage() << std::endl;
+			std::cout << parser->getFactory(mCommand)->getUsage() << std::endl;
 		}
 	}
 }

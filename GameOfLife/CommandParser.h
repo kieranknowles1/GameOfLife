@@ -20,11 +20,15 @@ namespace GameOfLife
 	class CommandParser;
 
 	// Register the default set of commands
-	void registerDefaultCommands(CommandParser& parser);
+	void registerDefaultCommands(CommandParser* parser);
 
 	class CommandParser
 	{
 	public:
+		CommandParser() = default;
+		// Disallow copying
+		CommandParser(const CommandParser&) = delete;
+
 		using Factories = std::map<std::string, CommandFactory*>;
 
 		std::unique_ptr<Command> parseInput(std::string_view input);

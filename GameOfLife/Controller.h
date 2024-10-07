@@ -10,7 +10,7 @@ namespace GameOfLife
 	class Controller
 	{
 	public:
-		Controller(CommandParser& parser) :
+		Controller(CommandParser* parser) :
 			mParser(parser),
 			mQuitRequested(false)
 		{}
@@ -21,9 +21,9 @@ namespace GameOfLife
 		// Request the controller to quit at the next opportunity
 		void requestQuit() { mQuitRequested = true; }
 
-		CommandParser& getParser() { return mParser; }
+		CommandParser* getParser() { return mParser; }
 	private:
-		CommandParser mParser;
+		CommandParser* mParser;
 		bool mQuitRequested = false;
 		// TODO: Use smart pointers everywhere
 		std::unique_ptr<Command> parseInput();

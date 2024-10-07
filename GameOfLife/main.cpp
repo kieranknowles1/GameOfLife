@@ -8,7 +8,7 @@
 
 int main()
 {
-    GameOfLife::CommandParser parser;
+    GameOfLife::CommandParser* parser = new GameOfLife::CommandParser();
     GameOfLife::registerDefaultCommands(parser);
 
     GameOfLife::Controller controller(parser);

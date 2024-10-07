@@ -34,6 +34,6 @@ namespace GameOfLife
 		std::string line;
 		std::getline(std::cin, line);
 
-		return mParser.parseInput(line);
+		return mParser->parseInput(line);
 	}
 }
