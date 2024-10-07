@@ -138,6 +138,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="HelpCommand.cpp" />
     <ClCompile Include="InitCommand.cpp" />
+    <ClCompile Include="IterateCommand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QuitCommand.cpp" />
     <ClCompile Include="ShowCommand.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="HelpCommand.h" />
     <ClInclude Include="InitCommand.h" />
+    <ClInclude Include="IterateCommand.h" />
     <ClInclude Include="QuitCommand.h" />
     <ClInclude Include="ShowCommand.h" />
   </ItemGroup>
