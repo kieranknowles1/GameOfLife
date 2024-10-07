@@ -136,12 +136,14 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="HelpCommand.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="QuitCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandParser.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="HelpCommand.h" />
+    <ClInclude Include="QuitCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

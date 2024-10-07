@@ -36,7 +36,7 @@ namespace GameOfLife
 	// A generic factory for creating commands where a constructor taking a string_view is available
 	// By using templates, the compiler can generate the correct implementation for each command with no work on our part
 	template <typename T>
-	class TypedCommandFactory : public CommandFactory {
+	class CommandFactoryImpl : public CommandFactory {
 		Command* create(std::string_view input) override {
 			return new T(input);
 		}

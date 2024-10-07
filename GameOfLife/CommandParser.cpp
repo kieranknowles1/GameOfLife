@@ -3,11 +3,13 @@
 #include <cassert>
 
 #include "HelpCommand.h"
+#include "QuitCommand.h"
 
 namespace GameOfLife {
 	void registerDefaultCommands(CommandParser& parser)
 	{
-		parser.registerFactory(new TypedCommandFactory<HelpCommand>());
+		parser.registerFactory(new CommandFactoryImpl<HelpCommand>());
+		parser.registerFactory(new CommandFactoryImpl<QuitCommand>());
 	}
 
 	Command* CommandParser::parseInput(std::string_view input)

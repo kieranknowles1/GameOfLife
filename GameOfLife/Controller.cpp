@@ -8,7 +8,18 @@ namespace GameOfLife
 	{
 		while (!mQuitRequested)
 		{
-			auto input = parseInput();
+			Command* input = nullptr;
+			try {
+				input = parseInput();
+			}
+			catch (std::invalid_argument& e) {
+				// If the command is invalid, print to stderr and continue
+				std::cerr << e.what() << std::endl;
+				std::cerr << "Type 'help' for a list of commands" << std::endl;
+				continue;
+			}
+
+			// Input is not null, as we continued in the catch block
 			input->execute(this);
 		}
 	}
