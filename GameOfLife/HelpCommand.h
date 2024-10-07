@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 #include "Command.h"
 
 namespace GameOfLife {
@@ -12,11 +10,7 @@ namespace GameOfLife {
 
 		HelpCommand(std::string_view input) {}
 
-		// TODO: Implement
-		void execute() override
-		{
-			std::cout << "This is a help message\n";
-		}
+		void execute(Controller* context) override;
 
 	private:
 		// Optional: Command to show help for

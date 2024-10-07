@@ -7,9 +7,7 @@ namespace GameOfLife
 		while (!mQuitRequested)
 		{
 			auto input = parseInput();
-			input->execute();
-
-			mQuitRequested = true;
+			input->execute(this);
 		}
 	}
 
