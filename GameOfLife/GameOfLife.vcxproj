@@ -137,8 +137,10 @@
     <ClCompile Include="CommandParser.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="HelpCommand.cpp" />
+    <ClCompile Include="InitCommand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QuitCommand.cpp" />
+    <ClCompile Include="ShowCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array2D.h" />
@@ -147,7 +149,9 @@
     <ClInclude Include="CommandParser.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="HelpCommand.h" />
+    <ClInclude Include="InitCommand.h" />
     <ClInclude Include="QuitCommand.h" />
+    <ClInclude Include="ShowCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

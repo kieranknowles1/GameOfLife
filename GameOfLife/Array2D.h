@@ -19,7 +19,12 @@ namespace GameOfLife {
 		Array2D(Vec2 size)
 			: mSize(size)
 			, mData(size.x * size.y)
-		{}
+		{
+			if (size.x <= 0 || size.y <= 0)
+			{
+				throw std::invalid_argument("Array2D size must be positive");
+			}
+		}
 
 		// Get whether a position is valid
 		bool isValid(Vec2 pos)

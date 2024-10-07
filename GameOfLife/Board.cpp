@@ -4,14 +4,13 @@
 #include <set>
 
 namespace GameOfLife {
-	Board Board::createRandom(Vec2 size, int aliveCells, Random& rng)
+	void Board::fillRandom(int aliveCells, Random& rng)
 	{
+		auto size = mCells.getSize();
 		if (aliveCells > (size.x * size.y))
 		{
 			throw std::invalid_argument("aliveCells cannot be greater than the number of cells");
 		}
-
-		Board board(size);
 
 		std::uniform_int_distribution xDist(0, size.x - 1);
 		std::uniform_int_distribution yDist(0, size.y - 1);
@@ -21,14 +20,12 @@ namespace GameOfLife {
 			Vec2 pos = { xDist(rng), yDist(rng) };
 			// Don't place more than one cell in the same position
 			// The check above ensures that we don't get stuck in an infinite loop
-			if (board.mCells[pos] == CellState::Dead)
+			if (mCells[pos] == CellState::Dead)
 			{
-				board.mCells[pos] = CellState::Alive;
+				mCells[pos] = CellState::Alive;
 				--cellsLeft;
 			}
 		}
-
-		return board;
 	}
 
 	Board::Board(Vec2 size)

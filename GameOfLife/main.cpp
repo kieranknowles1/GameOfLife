@@ -3,21 +3,11 @@
 
 #include <iostream>
 
-#include "Board.h"
 #include "CommandParser.h"
 #include "Controller.h"
 
 int main()
 {
-    // TODO: Create board through controller
-    auto rng = std::mt19937(0);
-    auto board = GameOfLife::Board::createRandom({ 10, 10 }, 20, rng);
-    std::cout << board.toString() << std::endl;
-    board.iterate();
-    std::cout << board.toString() << std::endl;
-    board.iterate();
-    std::cout << board.toString() << std::endl;
-
     auto parser = std::make_unique<GameOfLife::CommandParser>();
     GameOfLife::registerDefaultCommands(parser.get());
 

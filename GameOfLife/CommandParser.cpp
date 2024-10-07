@@ -3,12 +3,16 @@
 #include <cassert>
 
 #include "HelpCommand.h"
+#include "ShowCommand.h"
+#include "InitCommand.h"
 #include "QuitCommand.h"
 
 namespace GameOfLife {
 	void registerDefaultCommands(CommandParser* parser)
 	{
 		parser->registerFactory(new CommandFactoryImpl<HelpCommand>());
+		parser->registerFactory(new CommandFactoryImpl<ShowCommand>());
+		parser->registerFactory(new CommandFactoryImpl<InitCommand>());
 		parser->registerFactory(new CommandFactoryImpl<QuitCommand>());
 	}
 

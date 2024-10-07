@@ -20,8 +20,7 @@ namespace GameOfLife {
 		static constexpr char DeadCellChar = '.';
 		static constexpr char AliveCellChar = 'O';
 
-		// TODO: Implement this function
-		static Board createRandom(Vec2 size, int aliveCells, Random& rng);
+		void fillRandom(int aliveCells, Random& rng);
 
 		Board(Vec2 size);
 
