@@ -27,12 +27,12 @@ namespace GameOfLife {
 		}
 
 		// Get whether a position is valid
-		bool isValid(Vec2 pos)
+		bool isValid(Vec2 pos) const
 		{
 			return pos.x >= 0 && pos.x < mSize.x && pos.y >= 0 && pos.y < mSize.y;
 		}
 
-		T& operator[](Vec2 pos)
+		const T& operator[](Vec2 pos) const
 		{
 			if (!isValid(pos))
 			{
@@ -41,7 +41,14 @@ namespace GameOfLife {
 			return mData[pos.y * mSize.x + pos.x];
 		}
 
-		Vec2 getSize() { return mSize; }
+		T& operator[](Vec2 pos)
+		{
+			// const_cast is used to avoid code duplication by calling the overload (Vec2<T> vs const Vec2<T>)
+			auto constThis = const_cast<const Array2D*>(this);
+			return const_cast<T&>(constThis->operator[](pos));
+		}
+
+		Vec2 getSize() const { return mSize; }
 
 	private:
 		Vec2 mSize;

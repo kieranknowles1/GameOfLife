@@ -1,6 +1,8 @@
 #include "Board.h"
 
 #include <cassert>
+#include <iostream>
+#include <sstream>
 #include <set>
 
 namespace GameOfLife {
@@ -26,11 +28,21 @@ namespace GameOfLife {
 				--cellsLeft;
 			}
 		}
+
+		mInitialCells = mCells;
 	}
 
 	Board::Board(Vec2 size)
 		: mCells(size)
+		, mInitialCells(size)
 	{
+		// TODO: Temporary to test serialize. Replaece with commands
+		// TODO: `save [filename]`
+		// TODO: `load [filename]`
+		auto rng = Random(0);
+		fillRandom(10, rng);
+		iterate();
+		std::cout << serialize() << std::endl;
 	}
 
 	void Board::iterate()
@@ -94,13 +106,43 @@ namespace GameOfLife {
 
 	std::string Board::toString()
 	{
+		return cellsToString(mCells);
+	}
+
+	// Very simple serialization format:
+	// All fields are separated by a newline character
+	// Version number
+	// Width
+	// Height
+	// Initial cells
+	// Empty line
+	// Current cells
+	std::string Board::serialize()
+	{
+		std::stringstream ss;
+		ss << SerializeVersion << '\n';
+		ss << mCells.getSize().x << '\n';
+		ss << mCells.getSize().y << '\n';
+		ss << cellsToString(mInitialCells) << '\n';
+		ss << cellsToString(mCells);
+		return ss.str();
+	}
+
+	// TODO: Implement
+	//Board Board::deserialize(std::string_view str)
+	//{
+	//	return Board();
+	//}
+
+	std::string Board::cellsToString(const Array2D<CellState>& cells)
+	{
 		std::string result;
 
-		for (int y = 0; y < mCells.getSize().y; ++y)
+		for (int y = 0; y < cells.getSize().y; ++y)
 		{
-			for (int x = 0; x < mCells.getSize().x; ++x)
+			for (int x = 0; x < cells.getSize().x; ++x)
 			{
-				result += mCells[{x, y}] == CellState::Alive ? AliveCellChar : DeadCellChar;
+				result += cells[{x, y}] == CellState::Alive ? AliveCellChar : DeadCellChar;
 			}
 			result += '\n';
 		}
