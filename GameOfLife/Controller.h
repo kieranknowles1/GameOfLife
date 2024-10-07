@@ -20,6 +20,8 @@ namespace GameOfLife
 
 		// Request the controller to quit at the next opportunity
 		void requestQuit() { mQuitRequested = true; }
+
+		CommandParser& getParser() { return mParser; }
 	private:
 		CommandParser mParser;
 		bool mQuitRequested = false;

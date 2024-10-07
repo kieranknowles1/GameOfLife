@@ -1,5 +1,7 @@
 #include "Controller.h"
 
+#include <iostream>
+
 namespace GameOfLife
 {
 	void Controller::run()
@@ -13,7 +15,10 @@ namespace GameOfLife
 
 	Command* Controller::parseInput()
 	{
-		// TODO: Read input from the user
-		return mParser.parseInput("help");
+		std::cout << "Enter a command, or type 'help' for a list of commands" << std::endl;
+		std::string line;
+		std::getline(std::cin, line);
+
+		return mParser.parseInput(line);
 	}
 }

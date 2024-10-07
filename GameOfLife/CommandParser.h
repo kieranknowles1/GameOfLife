@@ -1,11 +1,22 @@
 #pragma once
 
 #include <map>
+#include <stdexcept>
 
 #include "Command.h"
 
 namespace GameOfLife
 {
+	class InvalidCommandException : public std::invalid_argument
+	{
+	public:
+		InvalidCommandException(std::string_view command) :
+			std::invalid_argument("Invalid command: " + std::string(command))
+		{}
+	};
+
+
+
 	class CommandParser;
 
 	// Register the default set of commands
@@ -14,10 +25,16 @@ namespace GameOfLife
 	class CommandParser
 	{
 	public:
+		using Factories = std::map<std::string, CommandFactory*>;
+
 		Command* parseInput(std::string_view input);
 
 		void registerFactory(CommandFactory* factory);
+		const Factories& getFactories() const { return mFactories; }
+
+		// Get the factory for a specific command, or throw if it doesn't exist
+		CommandFactory* getFactory(std::string_view identifier);
 	private:
-		std::map<std::string, CommandFactory*> mFactories;
+		Factories mFactories;
 	};
 }

@@ -20,8 +20,17 @@ namespace GameOfLife
 	// A factory for creating commands
 	class CommandFactory {
 	public:
+		// Construct a command from the given input
+		// input will be the entire string after the command identifier,
+		// or an empty string if there are no arguments
 		virtual Command* create(std::string_view input) = 0;
+
+		// Get the identifier for the command e.g., "help"
 		virtual std::string_view getIdentifier() const = 0;
+		// Get a one-line summary of the command e.g., "Show available commands or a specific command's usage"
+		virtual std::string_view getSummary() const = 0;
+		// Get usage information for the command e.g., "help [command]". Typically multiline
+		virtual std::string_view getUsage() const = 0;
 	};
 
 	// A generic factory for creating commands where a constructor taking a string_view is available
@@ -34,6 +43,14 @@ namespace GameOfLife
 
 		std::string_view getIdentifier() const override {
 			return T::Identifier;
+		}
+
+		std::string_view getSummary() const override {
+			return T::Summary;
+		}
+
+		std::string_view getUsage() const override {
+			return T::Usage;
 		}
 	};
 }
