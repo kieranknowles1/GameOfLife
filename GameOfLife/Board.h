@@ -8,7 +8,7 @@
 namespace GameOfLife {
 	using Random = std::mt19937;
 
-	enum class Cell : bool
+	enum class CellState : bool
 	{
 		Dead = false,
 		Alive = true
@@ -25,8 +25,16 @@ namespace GameOfLife {
 
 		Board(Vec2 size);
 
+		// Run one iteration of the game of life
+		void iterate();
+
 		std::string toString();
 	private:
-		Array2D<Cell> mCells;
+		Array2D<CellState> mCells;
+
+		CellState getNewState(int aliveNeighbours, CellState state);
+
+		// Get the number of alive neighbours of a cell
+		int getAliveNeighbours(Vec2 pos);
 	};
 }

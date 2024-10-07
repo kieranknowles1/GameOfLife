@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdexcept>
 #include <vector>
 
 namespace GameOfLife {
@@ -20,8 +21,18 @@ namespace GameOfLife {
 			, mData(size.x * size.y)
 		{}
 
+		// Get whether a position is valid
+		bool isValid(Vec2 pos)
+		{
+			return pos.x >= 0 && pos.x < mSize.x && pos.y >= 0 && pos.y < mSize.y;
+		}
+
 		T& operator[](Vec2 pos)
 		{
+			if (!isValid(pos))
+			{
+				throw std::out_of_range("Array2D index out of bounds");
+			}
 			return mData[pos.y * mSize.x + pos.x];
 		}
 
