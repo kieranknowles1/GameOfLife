@@ -25,6 +25,11 @@ namespace GameOfLife {
 		void fillRandom(int aliveCells, Random& rng);
 
 		Board(Vec2 size);
+		Board(Array2D<CellState> cells, Array2D<CellState> initialCells)
+			: mCells(std::move(cells))
+			, mInitialCells(std::move(initialCells))
+		{
+		}
 
 		// Run one iteration of the game of life
 		void iterate();
