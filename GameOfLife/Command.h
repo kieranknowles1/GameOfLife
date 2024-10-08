@@ -19,6 +19,7 @@ namespace GameOfLife
 	};
 
 	// A factory for creating commands
+	// Provides methods to parse a string, and to get metadata for the `help` command
 	class CommandFactory {
 	public:
 		// Construct a command from the given input

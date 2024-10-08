@@ -14,6 +14,8 @@
 namespace GameOfLife {
 	void registerDefaultCommands(CommandParser* parser)
 	{
+		// Register the default set of commands
+		// Templates allow the compiler to generate a factory for each command
 		parser->registerFactory(new CommandFactoryImpl<HelpCommand>());
 		parser->registerFactory(new CommandFactoryImpl<ShowCommand>());
 		parser->registerFactory(new CommandFactoryImpl<InitCommand>());
