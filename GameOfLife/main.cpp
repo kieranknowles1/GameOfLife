@@ -6,8 +6,28 @@
 #include "CommandParser.h"
 #include "Controller.h"
 
+#include <filesystem>
+#include <fstream>
+#include <sstream>
+#include "Serializer.h"
+#include "Experiment/Experiment.h"
+#include "Experiment/Pattern.h"
+
 int main()
 {
+    auto pattern = GameOfLife::Experiment::Pattern();
+    auto params = GameOfLife::Experiment::Parameters{
+        {30, 30},
+        25,
+        100,
+        100
+    };
+    auto experiment = GameOfLife::Experiment::Experiment(params, pattern);
+
+    auto result = experiment.run();
+
+    return 0;
+
     auto parser = std::make_unique<GameOfLife::CommandParser>();
     GameOfLife::registerDefaultCommands(parser.get());
 

@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Experiment">
+      <UniqueIdentifier>{88b2be0c-99ba-4c9a-9eb8-099cef8322e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Experiment">
+      <UniqueIdentifier>{607b9c64-4fbc-4a6d-ae46-5fc3545f1f0c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +63,15 @@
     <ClCompile Include="LoadCommand.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Experiment\Experiment.cpp">
+      <Filter>Source Files\Experiment</Filter>
+    </ClCompile>
+    <ClCompile Include="Experiment\Pattern.cpp">
+      <Filter>Source Files\Experiment</Filter>
+    </ClCompile>
+    <ClCompile Include="Experiment\Frame.cpp">
+      <Filter>Source Files\Experiment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array2D.h">
@@ -96,6 +111,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LoadCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Experiment\Experiment.h">
+      <Filter>Header Files\Experiment</Filter>
+    </ClInclude>
+    <ClInclude Include="Experiment\Pattern.h">
+      <Filter>Header Files\Experiment</Filter>
+    </ClInclude>
+    <ClInclude Include="Experiment\Frame.h">
+      <Filter>Header Files\Experiment</Filter>
+    </ClInclude>
+    <ClInclude Include="Cell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

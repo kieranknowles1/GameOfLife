@@ -136,6 +136,9 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandParser.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Experiment\Experiment.cpp" />
+    <ClCompile Include="Experiment\Frame.cpp" />
+    <ClCompile Include="Experiment\Pattern.cpp" />
     <ClCompile Include="HelpCommand.cpp" />
     <ClCompile Include="InitCommand.cpp" />
     <ClCompile Include="IterateCommand.cpp" />
@@ -149,9 +152,13 @@
   <ItemGroup>
     <ClInclude Include="Array2D.h" />
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Cell.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandParser.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Experiment\Experiment.h" />
+    <ClInclude Include="Experiment\Frame.h" />
+    <ClInclude Include="Experiment\Pattern.h" />
     <ClInclude Include="HelpCommand.h" />
     <ClInclude Include="InitCommand.h" />
     <ClInclude Include="IterateCommand.h" />

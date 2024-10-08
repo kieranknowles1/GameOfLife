@@ -9,6 +9,15 @@ namespace GameOfLife {
 	{
 		int x;
 		int y;
+
+		Vec2 operator+(Vec2 other) const
+		{
+			return { x + other.x, y + other.y };
+		}
+		Vec2 operator-(Vec2 other) const
+		{
+			return { x - other.x, y - other.y };
+		}
 	};
 
 	// 2D array. Size must be known at construction time.

@@ -4,18 +4,10 @@
 #include <random>
 
 #include "Array2D.h"
+#include "Cell.h"
 
 namespace GameOfLife {
 	using Random = std::mt19937;
-
-	enum class CellState : bool
-	{
-		Dead = false,
-		Alive = true
-	};
-
-	static constexpr char DeadCellChar = '.';
-	static constexpr char AliveCellChar = 'O';
 
 	std::string cellsToString(const Array2D<CellState>& cells);
 
@@ -39,6 +31,7 @@ namespace GameOfLife {
 		Vec2 getSize() const { return mCells.getSize(); }
 
 		Array2D<CellState>& getCells() { return mCells; }
+		const Array2D<CellState>& getCells() const { return mCells; }
 		Array2D<CellState>& getInitialCells() { return mInitialCells; }
 	private:
 		Array2D<CellState> mInitialCells;
