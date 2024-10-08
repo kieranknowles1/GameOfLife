@@ -6,6 +6,33 @@
 #include <set>
 
 namespace GameOfLife {
+	// Format:
+	// <width> <height>
+	// <data>
+	std::string cellsToString(const Array2D<CellState>& cells)
+	{
+		std::stringstream ss;
+		ss << cells.getSize().x << " " << cells.getSize().y << '\n';
+
+		for (int y = 0; y < cells.getSize().y; ++y)
+		{
+			for (int x = 0; x < cells.getSize().x; ++x)
+			{
+				char repr = cells[{x, y}] == CellState::Alive ? AliveCellChar : DeadCellChar;
+				ss << repr;
+			}
+			ss << '\n';
+		}
+
+		return ss.str();
+	}
+
+	Array2D<CellState> cellsFromString(std::string_view str)
+	{
+		// TODO: Implement
+		return Array2D<CellState>({ 1, 1 });
+	}
+
 	void Board::fillRandom(int aliveCells, Random& rng)
 	{
 		auto size = mCells.getSize();
@@ -105,19 +132,14 @@ namespace GameOfLife {
 	// Very simple serialization format:
 	// All fields are separated by a newline character
 	// Version number
-	// Width
-	// Height
 	// Initial cells
-	// Empty line
 	// Current cells
 	std::string Board::serialize()
 	{
 		std::stringstream ss;
 		ss << SerializeVersion << '\n';
-		ss << mCells.getSize().x << '\n';
-		ss << mCells.getSize().y << '\n';
+		ss << cellsToString(mCells) << '\n';
 		ss << cellsToString(mInitialCells) << '\n';
-		ss << cellsToString(mCells);
 		return ss.str();
 	}
 
@@ -126,20 +148,4 @@ namespace GameOfLife {
 	//{
 	//	return Board();
 	//}
-
-	std::string Board::cellsToString(const Array2D<CellState>& cells)
-	{
-		std::string result;
-
-		for (int y = 0; y < cells.getSize().y; ++y)
-		{
-			for (int x = 0; x < cells.getSize().x; ++x)
-			{
-				result += cells[{x, y}] == CellState::Alive ? AliveCellChar : DeadCellChar;
-			}
-			result += '\n';
-		}
-
-		return result;
-	}
 }

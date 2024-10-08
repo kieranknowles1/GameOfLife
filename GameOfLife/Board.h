@@ -14,11 +14,15 @@ namespace GameOfLife {
 		Alive = true
 	};
 
+	static constexpr char DeadCellChar = '.';
+	static constexpr char AliveCellChar = 'O';
+
+	Array2D<CellState> fromString(std::string_view str);
+	std::string toString(const Array2D<CellState>& cells);
+
 	class Board
 	{
 	public:
-		static constexpr char DeadCellChar = '.';
-		static constexpr char AliveCellChar = 'O';
 
 		static constexpr int SerializeVersion = 1;
 
@@ -39,8 +43,6 @@ namespace GameOfLife {
 	private:
 		Array2D<CellState> mInitialCells;
 		Array2D<CellState> mCells;
-
-		std::string cellsToString(const Array2D<CellState>& cells);
 
 		CellState getNewState(int aliveNeighbours, CellState state);
 
