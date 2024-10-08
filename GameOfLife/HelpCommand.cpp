@@ -9,7 +9,6 @@ namespace GameOfLife {
 		mCommand(input)
 	{}
 
-	// TODO: Implement
 	void HelpCommand::execute(Controller* context)
 	{
 		auto parser = context->getParser();

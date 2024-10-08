@@ -19,7 +19,6 @@ namespace GameOfLife {
 
 	private:
 		// Optional: Command to show help for
-		// TODO: Implement
 		std::string mCommand;
 	};
 }

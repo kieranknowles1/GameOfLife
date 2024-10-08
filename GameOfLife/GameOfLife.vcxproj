@@ -139,6 +139,7 @@
     <ClCompile Include="HelpCommand.cpp" />
     <ClCompile Include="InitCommand.cpp" />
     <ClCompile Include="IterateCommand.cpp" />
+    <ClCompile Include="LoadCommand.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QuitCommand.cpp" />
     <ClCompile Include="SaveCommand.cpp" />
@@ -154,6 +155,7 @@
     <ClInclude Include="HelpCommand.h" />
     <ClInclude Include="InitCommand.h" />
     <ClInclude Include="IterateCommand.h" />
+    <ClInclude Include="LoadCommand.h" />
     <ClInclude Include="QuitCommand.h" />
     <ClInclude Include="SaveCommand.h" />
     <ClInclude Include="Serializer.h" />
