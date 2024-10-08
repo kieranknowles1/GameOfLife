@@ -36,6 +36,17 @@ namespace GameOfLife
 
 	// A generic factory for creating commands where a constructor taking a string_view is available
 	// By using templates, the compiler can generate the correct implementation for each command with no work on our part
+	// Requirements for command T:
+	// : public Command // Derive and implement the Command class
+	//   used as an interface here.
+	// - static constexpr std::string_view Identifier
+	//   Identifier used to call the command
+	// - static constexpr std::string_view Summary
+	//   A one-line summary of the command
+	// - static constexpr std::string_view Usage
+	//   Detailed usage information for the command
+	// - Constructor T(std::string_view args)
+	//   Parse arguments, if any, from the input string
 	template <typename T>
 	class CommandFactoryImpl : public CommandFactory {
 		std::unique_ptr<Command> create(std::string_view input) override {

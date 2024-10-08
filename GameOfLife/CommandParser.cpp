@@ -6,6 +6,7 @@
 #include "ShowCommand.h"
 #include "InitCommand.h"
 #include "IterateCommand.h"
+#include "SaveCommand.h"
 #include "QuitCommand.h"
 
 namespace GameOfLife {
@@ -15,6 +16,7 @@ namespace GameOfLife {
 		parser->registerFactory(new CommandFactoryImpl<ShowCommand>());
 		parser->registerFactory(new CommandFactoryImpl<InitCommand>());
 		parser->registerFactory(new CommandFactoryImpl<IterateCommand>());
+		parser->registerFactory(new CommandFactoryImpl<SaveCommand>());
 		parser->registerFactory(new CommandFactoryImpl<QuitCommand>());
 	}
 

@@ -36,13 +36,6 @@ namespace GameOfLife {
 		: mCells(size)
 		, mInitialCells(size)
 	{
-		// TODO: Temporary to test serialize. Replaece with commands
-		// TODO: `save [filename]`
-		// TODO: `load [filename]`
-		auto rng = Random(0);
-		fillRandom(10, rng);
-		iterate();
-		std::cout << serialize() << std::endl;
 	}
 
 	void Board::iterate()

@@ -27,6 +27,10 @@ namespace GameOfLife
 
 		void setBoard(std::unique_ptr<Board> board) { mBoard = std::move(board); }
 		Board* getBoard() { return mBoard.get(); }
+
+		std::string_view getSaveDirectory() const {
+			return "./save";
+		}
 	private:
 		std::unique_ptr<CommandParser> mParser;
 
