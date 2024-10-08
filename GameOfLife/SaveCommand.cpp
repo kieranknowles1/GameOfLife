@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Controller.h"
+#include "Serializer.h"
 
 namespace GameOfLife {
 	SaveCommand::SaveCommand(std::string_view args) {
@@ -30,7 +31,7 @@ namespace GameOfLife {
 			throw std::runtime_error("Failed to open file for writing");
 		}
 
-		auto data = board->serialize();
+		auto data = Serializer::serialize(*board);
 		file << data;
 		// C++ closes files automatically when they go out of scope
 	}

@@ -17,15 +17,11 @@ namespace GameOfLife {
 	static constexpr char DeadCellChar = '.';
 	static constexpr char AliveCellChar = 'O';
 
-	Array2D<CellState> fromString(std::string_view str);
-	std::string toString(const Array2D<CellState>& cells);
+	std::string cellsToString(const Array2D<CellState>& cells);
 
 	class Board
 	{
 	public:
-
-		static constexpr int SerializeVersion = 1;
-
 		void fillRandom(int aliveCells, Random& rng);
 
 		Board(Vec2 size);
@@ -35,11 +31,10 @@ namespace GameOfLife {
 
 		std::string toString();
 
-		// Serialize the board to a string so it can be loaded later
-		std::string serialize();
+		Vec2 getSize() const { return mCells.getSize(); }
 
-		// Load a board from a string
-		static Board deserialize(std::string_view str);
+		Array2D<CellState>& getCells() { return mCells; }
+		Array2D<CellState>& getInitialCells() { return mInitialCells; }
 	private:
 		Array2D<CellState> mInitialCells;
 		Array2D<CellState> mCells;

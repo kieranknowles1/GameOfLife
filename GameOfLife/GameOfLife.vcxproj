@@ -142,6 +142,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QuitCommand.cpp" />
     <ClCompile Include="SaveCommand.cpp" />
+    <ClCompile Include="Serializer.cpp" />
     <ClCompile Include="ShowCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="IterateCommand.h" />
     <ClInclude Include="QuitCommand.h" />
     <ClInclude Include="SaveCommand.h" />
+    <ClInclude Include="Serializer.h" />
     <ClInclude Include="ShowCommand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
