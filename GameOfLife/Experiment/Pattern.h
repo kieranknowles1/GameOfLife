@@ -14,8 +14,8 @@ namespace GameOfLife::Experiment
 		// TODO: Temporary constructor for testing
 		Pattern();
 
-		// Get all positions of this pattern in the board
-		std::vector<Vec2> boardContainsStart(const Board& board) const;
+		// Get all positions of the pattern's first frame in the board
+		std::vector<Vec2> findInstances(const Board& board) const;
 
 		// Get whether the board contains this pattern at a specific
 		// position and frame number

@@ -13,12 +13,11 @@ namespace GameOfLife::Experiment
 		cells[{2, 2}] = CellState::Alive;
 		mFrames.push_back(Frame(cells));
 	}
-	std::vector<Vec2> Pattern::boardContainsStart(const Board& board) const
+	std::vector<Vec2> Pattern::findInstances(const Board& board) const
 	{
 		auto& frame = mFrames[0];
 		
-		// TODO: Look at the offset
-		return frame.boardContains(board);
+		return frame.findInstances(board);
 	}
 
 	bool Pattern::existsAtPosition(const Board& board, Vec2 position, int frameNumber) const
@@ -28,6 +27,7 @@ namespace GameOfLife::Experiment
 		Vec2 offset = mOffset * iterations;
 
 		auto& frame = mFrames[frameIndex];
+		// TODO: Does this handle gliders properly?
 
 		return frame.pointContains(position - offset, board);
 	}

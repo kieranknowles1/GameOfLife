@@ -2,7 +2,7 @@
 
 namespace GameOfLife::Experiment
 {
-	std::vector<Vec2> Frame::boardContains(const Board& board) const
+	std::vector<Vec2> Frame::findInstances(const Board& board) const
 	{
 		// We search from the top left, so skip
 		// places where the frame would be out of bounds

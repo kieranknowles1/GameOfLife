@@ -52,8 +52,8 @@ namespace GameOfLife::Experiment {
 			// TODO: Find any patterns on their first frame, track
 			// these as candidates, and return success if any of them
 			// survive long enough
-			auto found = mTargetPattern.boardContainsStart(board);
-			for (auto item : found)
+			auto found = mTargetPattern.findInstances(board);
+			for (auto& item : found)
 			{
 				candidates.emplace_back(Candidate{ item, 0 });
 			}

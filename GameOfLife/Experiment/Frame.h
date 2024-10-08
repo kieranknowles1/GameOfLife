@@ -17,7 +17,8 @@ namespace GameOfLife::Experiment
 		{
 		}
 
-		std::vector<Vec2> boardContains(const Board& board) const;
+		// Get all instances of this frame in the board
+		std::vector<Vec2> findInstances(const Board& board) const;
 		bool pointContains(const Vec2 topLeft, const Board& board) const;
 	private:
 
