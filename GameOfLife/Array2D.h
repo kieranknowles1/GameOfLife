@@ -18,6 +18,11 @@ namespace GameOfLife {
 		{
 			return { x - other.x, y - other.y };
 		}
+
+		Vec2 operator*(int scalar) const
+		{
+			return { x * scalar, y * scalar };
+		}
 	};
 
 	// 2D array. Size must be known at construction time.

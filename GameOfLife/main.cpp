@@ -18,13 +18,18 @@ int main()
     auto pattern = GameOfLife::Experiment::Pattern();
     auto params = GameOfLife::Experiment::Parameters{
         {30, 30},
-        25,
+        100,
         100,
         100
     };
     auto experiment = GameOfLife::Experiment::Experiment(params, pattern);
 
     auto result = experiment.run();
+    if (result.mSuccess)
+    {
+        std::cout << "Success! Generation: " << result.mAttempts << "\n";
+        std::cout << result.mFinalBoard->toString();
+    }
 
     return 0;
 

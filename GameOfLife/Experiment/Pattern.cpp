@@ -3,16 +3,21 @@
 namespace GameOfLife::Experiment
 {
 	Pattern::Pattern()
-		: mSize({ 2, 2 })
-		, mOffset({ 0, 0 })
+		: mSize({ 4, 4 })
 	{
-		// Temporary: Create a box pattern
-		auto cells = Array2D<CellState>({ 2, 2 });
-		cells[{0, 0}] = CellState::Alive;
-		cells[{0, 1}] = CellState::Alive;
-		cells[{1, 0}] = CellState::Alive;
+		auto cells = Array2D<CellState>(mSize);
 		cells[{1, 1}] = CellState::Alive;
-
+		cells[{2, 1}] = CellState::Alive;
+		cells[{1, 2}] = CellState::Alive;
+		cells[{2, 2}] = CellState::Alive;
 		mFrames.push_back(Frame(cells));
+	}
+	bool Pattern::boardContainsFrame(const Board& board, int frameNumber) const
+	{
+		int frameIndex = frameNumber % mFrames.size();
+
+		auto& frame = mFrames[frameIndex];
+		
+		return frame.boardContains(board);
 	}
 }

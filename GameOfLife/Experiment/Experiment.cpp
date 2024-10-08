@@ -27,10 +27,16 @@ namespace GameOfLife::Experiment {
 		// Run the game of life for mMaxGenerations generations
 		for (int generation = 0; generation < mParameters.mMaxGenerations; generation++)
 		{
-			board.iterate();
 			// TODO: Find any patterns on their first frame, track
 			// these as candidates, and return success if any of them
 			// survive long enough
+			bool contains = mTargetPattern.boardContainsFrame(board, generation);
+			if (contains)
+			{
+				return Result{ true, generation, std::make_unique<Board>(board) };
+			}
+
+			board.iterate();
 		}
 
 		return Result::Failure();
