@@ -2,22 +2,24 @@
 
 namespace GameOfLife::Experiment
 {
-	bool Frame::boardContains(const Board& board) const
+	std::vector<Vec2> Frame::boardContains(const Board& board) const
 	{
 		// We search from the top left, so skip
 		// places where the frame would be out of bounds
 		int maxX = board.getSize().x - mCells.getSize().x;
 		int maxY = board.getSize().y - mCells.getSize().y;
 
+		std::vector<Vec2> positions;
+
 		for (int x = 0; x <= maxX; x++)
 		{
 			for (int y = 0; y <= maxY; y++)
 			{
 				if (pointContains({ x, y }, board))
-					return true;
+					positions.push_back({ x, y });
 			}
 		}
-		return false;
+		return positions;
 	}
 
 	// Returns the state of the cell at pos, or Dead if out of bounds

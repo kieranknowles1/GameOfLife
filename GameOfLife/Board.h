@@ -22,6 +22,11 @@ namespace GameOfLife {
 			, mInitialCells(std::move(initialCells))
 		{
 		}
+		Board(Array2D<CellState> initialCells)
+			: mCells(initialCells)
+			, mInitialCells(initialCells)
+		{
+		}
 
 		// Run one iteration of the game of life
 		void iterate();

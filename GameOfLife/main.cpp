@@ -20,15 +20,24 @@ int main()
         {30, 30},
         100,
         100,
-        100
+        100,
+        10
     };
     auto experiment = GameOfLife::Experiment::Experiment(params, pattern);
 
     auto result = experiment.run();
     if (result.mSuccess)
     {
-        std::cout << "Success! Generation: " << result.mAttempts << "\n";
-        std::cout << result.mFinalBoard->toString();
+        std::cout << "Success! attempt: " << result.mAttempts << "\n";
+        std::cout << "Generations: " << result.mGenerations << "\n";
+
+        // Print all iterations
+        auto board = GameOfLife::Board::Board(result.mFinalBoard->getInitialCells());
+        for (int i = 0; i < result.mGenerations; i++)
+		{
+			std::cout << board.toString() << "\n";
+			board.iterate();
+		}
     }
 
     return 0;

@@ -17,10 +17,9 @@ namespace GameOfLife::Experiment
 		{
 		}
 
-		bool boardContains(const Board& board) const;
-
-	private:
+		std::vector<Vec2> boardContains(const Board& board) const;
 		bool pointContains(const Vec2 topLeft, const Board& board) const;
+	private:
 
 		Array2D<CellState> mCells;
 	};

@@ -24,16 +24,38 @@ namespace GameOfLife::Experiment {
 		auto board = Board(mParameters.mBoardSize);
 		board.fillRandom(mParameters.mInitialPopulation, rng);
 
+		std::vector<Candidate> candidates;
+
 		// Run the game of life for mMaxGenerations generations
 		for (int generation = 0; generation < mParameters.mMaxGenerations; generation++)
 		{
+			// Check that our candidates are still alive
+			for (int i = 0; i < candidates.size(); i++)
+			{
+				auto& candidate = candidates[i];
+				auto frame = candidate.mCurrentLifetime;
+				bool alive = mTargetPattern.existsAtPosition(board, candidate.mPosition, frame);
+				if (alive)
+				{
+					candidate.mCurrentLifetime++;
+					if (candidate.mCurrentLifetime >= mParameters.mMinimumLifetime)
+						return Result{ true, attempt, generation, std::make_unique<Board>(board) };
+				}
+				else
+				{
+					candidates.erase(candidates.begin() + i);
+					// We've removed an item, so we need to decrement i
+					i--;
+				}
+			}
+
 			// TODO: Find any patterns on their first frame, track
 			// these as candidates, and return success if any of them
 			// survive long enough
-			bool contains = mTargetPattern.boardContainsFrame(board, generation);
-			if (contains)
+			auto found = mTargetPattern.boardContainsStart(board);
+			for (auto item : found)
 			{
-				return Result{ true, generation, std::make_unique<Board>(board) };
+				candidates.emplace_back(Candidate{ item, 0 });
 			}
 
 			board.iterate();
