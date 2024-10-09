@@ -55,7 +55,9 @@ namespace GameOfLife::Experiment {
 			auto found = mTargetPattern.findInstances(board);
 			for (auto& item : found)
 			{
-				candidates.emplace_back(Candidate{ item, 0 });
+				// The first frame has already been seen, we will
+				// look at frame 2 next
+				candidates.emplace_back(Candidate{ item, 1 });
 			}
 
 			board.iterate();

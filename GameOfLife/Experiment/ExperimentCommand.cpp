@@ -1,10 +1,12 @@
 #include "ExperimentCommand.h"
 
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <cassert>
 
 #include "../Controller.h"
+#include "../Serializer.h"
 
 namespace GameOfLife::Experiment
 {
@@ -24,8 +26,11 @@ namespace GameOfLife::Experiment
 
 	void ExperimentCommand::execute(Controller* context)
 	{
-		// TODO: Load the pattern
-		Pattern pattern;
+		// TODO: Load the pattern from args
+		std::ifstream file("./pattern/blinker.txt");
+		std::string data(std::istreambuf_iterator<char>(file), {});
+
+		Pattern pattern = Serializer::deserializePattern(data);
 
 		Experiment experiment(mParameters, pattern);
 

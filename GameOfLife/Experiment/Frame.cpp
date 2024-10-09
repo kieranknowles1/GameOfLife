@@ -6,6 +6,7 @@ namespace GameOfLife::Experiment
 	{
 		// We search from the top left, so skip
 		// places where the frame would be out of bounds
+		// TODO: We can go 1 cell out each way for patterns on the very edge
 		int maxX = board.getSize().x - mCells.getSize().x;
 		int maxY = board.getSize().y - mCells.getSize().y;
 

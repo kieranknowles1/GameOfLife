@@ -14,6 +14,12 @@ namespace GameOfLife::Experiment
 		// TODO: Temporary constructor for testing
 		Pattern();
 
+		Pattern(std::vector<Frame> frames, Vec2 size, Vec2 offset)
+			: mFrames(std::move(frames))
+			, mSize(size)
+			, mOffset(offset)
+		{}
+
 		// Get all positions of the pattern's first frame in the board
 		std::vector<Vec2> findInstances(const Board& board) const;
 

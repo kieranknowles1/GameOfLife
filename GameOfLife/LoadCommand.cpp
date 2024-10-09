@@ -25,7 +25,7 @@ namespace GameOfLife {
 		}
 
 		auto data = std::string((std::istreambuf_iterator<char>(file)), {});
-		auto board = Serializer::deserialize(data);
+		auto board = Serializer::deserializeBoard(data);
 
 		controller->setBoard(std::make_unique<Board>(board));
 	}

@@ -20,6 +20,8 @@ namespace GameOfLife::Experiment
 		// Get all instances of this frame in the board
 		std::vector<Vec2> findInstances(const Board& board) const;
 		bool pointContains(const Vec2 topLeft, const Board& board) const;
+
+		Vec2 getSize() { return mCells.getSize(); }
 	private:
 
 		Array2D<CellState> mCells;
