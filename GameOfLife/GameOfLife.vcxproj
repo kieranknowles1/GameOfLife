@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClCompile Include="Array2D.cpp" />
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Cell.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandParser.cpp" />
     <ClCompile Include="Controller.cpp" />

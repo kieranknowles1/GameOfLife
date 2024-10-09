@@ -75,6 +75,9 @@
     <ClCompile Include="Experiment\ExperimentCommand.cpp">
       <Filter>Source Files\Experiment</Filter>
     </ClCompile>
+    <ClCompile Include="Cell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array2D.h">

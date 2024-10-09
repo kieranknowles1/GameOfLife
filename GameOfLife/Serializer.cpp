@@ -8,80 +8,30 @@ namespace GameOfLife {
 		std::string result;
 		result += std::to_string(Version) + '\n';
 
-		result +=
-			std::to_string(board.getSize().x)
-			+ ' '
-			+ std::to_string(board.getSize().y) + '\n';
-
-		result += cellsToString(board.getCells());
-		result += cellsToString(board.getInitialCells());
+		result += board.getCells().serialize();
+		result += board.getInitialCells().serialize();
 
 		return result;
-	}
-
-	// Read a line from a stringstream, advancing the stream
-	std::string getLine(std::stringstream& stream)
-	{
-		std::string line;
-		std::getline(stream, line);
-		return line;
-	}
-
-	[[noreturn]] void fail(std::string_view message)
-	{
-		throw std::invalid_argument(std::string(message));
-	}
-
-	Array2D<CellState> readCells(std::stringstream& stream, Vec2 size)
-	{
-		Array2D<CellState> cells(size);
-
-		for (int y = 0; y < size.y; y++)
-		{
-			auto line = getLine(stream);
-			if (line.size() != size.x)
-				fail("Invalid line length: " + line);
-
-			for (int x = 0; x < size.x; x++)
-			{
-				CellState state;
-				switch (line[x])
-				{
-				case DeadCellChar: state = CellState::Dead; break;
-				case AliveCellChar: state = CellState::Alive; break;
-				default: fail("Invalid cell character: " + line[x]);
-				}
-
-				cells[{x, y}] = state;
-			}
-		}
-
-		return cells;
 	}
 
 	Board Serializer::deserialize(std::string_view str)
 	{
 		auto stream = std::stringstream(std::string(str));
 
-		int version = std::stoi(getLine(stream));
+		std::string versionLine;
+		std::getline(stream, versionLine);
+		int version = std::stoi(versionLine);
 		if (version != Version)
-			fail("Invalid version, got " + std::to_string(version) + " expected " + std::to_string(Version));
+			throw std::runtime_error("Invalid version, got " + std::to_string(version) + " expected " + std::to_string(Version));
 
-		auto sizeLine = getLine(stream);
-		auto space = sizeLine.find(' ');
-		if (space == std::string::npos)
-			fail("Invalid size line: " + sizeLine);
+		auto state = Array2D<CellState>::deserialize(stream);
+		auto initialState = Array2D<CellState>::deserialize(stream);
 
-		int width = std::stoi(sizeLine.substr(0, space));
-		int height = std::stoi(sizeLine.substr(space + 1));
+		return Board(state, initialState);
+	}
 
-		auto cells = readCells(stream, { width, height });
-		auto initialCells = readCells(stream, { width, height });
-
-		// Make sure we consumed everything
-		if (stream.peek() != EOF)
-			fail("Extra data in stream");
-
-		return Board(cells, initialCells);
+	[[noreturn]] void fail(std::string_view message)
+	{
+		throw std::invalid_argument(std::string(message));
 	}
 }

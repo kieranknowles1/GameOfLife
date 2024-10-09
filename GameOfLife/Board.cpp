@@ -6,26 +6,6 @@
 #include <set>
 
 namespace GameOfLife {
-	// Format:
-	// <width> <height>
-	// <data>
-	std::string cellsToString(const Array2D<CellState>& cells)
-	{
-		std::stringstream ss;
-
-		for (int y = 0; y < cells.getSize().y; ++y)
-		{
-			for (int x = 0; x < cells.getSize().x; ++x)
-			{
-				char repr = cells[{x, y}] == CellState::Alive ? AliveCellChar : DeadCellChar;
-				ss << repr;
-			}
-			ss << '\n';
-		}
-
-		return ss.str();
-	}
-
 	void Board::fillRandom(int aliveCells, Random& rng)
 	{
 		auto size = mCells.getSize();
@@ -119,6 +99,6 @@ namespace GameOfLife {
 
 	std::string Board::toString()
 	{
-		return cellsToString(mCells);
+		return mCells.serializeBody();
 	}
 }

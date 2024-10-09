@@ -8,7 +8,9 @@ namespace GameOfLife {
 	class Serializer
 	{
 	public:
-		static constexpr int Version = 2;
+		// Version of serialize format. Increment when
+		// making a breaking change
+		static constexpr int Version = 3;
 
 		Serializer() = delete; // This is a static class
 

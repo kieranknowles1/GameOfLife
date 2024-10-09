@@ -1,5 +1,7 @@
 #pragma once
 
+#include <sstream>
+#include <string>
 #include <stdexcept>
 #include <vector>
 
@@ -55,6 +57,38 @@ namespace GameOfLife {
 			return mData[pos.y * mSize.x + pos.x];
 		}
 
+		// Convert the Array2D to a string that can be later loaded
+		std::string serialize() const {
+			std::string result;
+			result +=
+				std::to_string(mSize.x)
+				+ ' '
+				+ std::to_string(mSize.y)
+				+ '\n';
+
+			return result + serializeBody();
+		}
+		// Load an Array2D from a string
+		static Array2D deserialize(std::stringstream& str) {
+			std::string sizeLine;
+			std::getline(str, sizeLine);
+			auto space = sizeLine.find(' ');
+			if (space == std::string::npos)
+				throw std::invalid_argument("Invalid size line: " + sizeLine);
+
+			int width = std::stoi(sizeLine.substr(0, space));
+			int height = std::stoi(sizeLine.substr(space + 1));
+
+			auto arr = Array2D({ width, height });
+			arr.deserializeBody(str);
+			return arr;
+		}
+
+		// Must be specialised for each implementation
+		std::string serializeBody() const;
+		// Read body into this
+		void deserializeBody(std::stringstream& str);
+
 		T& operator[](Vec2 pos)
 		{
 			// const_cast is used to avoid code duplication by calling the overload (Vec2<T> vs const Vec2<T>)
@@ -65,6 +99,7 @@ namespace GameOfLife {
 		Vec2 getSize() const { return mSize; }
 
 	private:
+
 		Vec2 mSize;
 		std::vector<T> mData;
 	};

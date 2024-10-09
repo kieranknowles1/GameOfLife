@@ -9,8 +9,6 @@
 namespace GameOfLife {
 	using Random = std::mt19937;
 
-	std::string cellsToString(const Array2D<CellState>& cells);
-
 	class Board
 	{
 	public:
