@@ -44,7 +44,8 @@ namespace GameOfLife::Experiment
 			for (int y = initialSize.y; y < maxSize.y; y++)
 			{
 				Vec2 size{ x, y };
-				for (int cells = MinPossibleCells; cells <= MaxCells; cells++)
+				int maxCells = std::min(MaxCells, size.x * size.y);
+				for (int cells = MinPossibleCells; cells <= maxCells; cells++)
 				{
 					Parameters params{
 						size,
@@ -59,6 +60,7 @@ namespace GameOfLife::Experiment
 					if (params.getEfficiencyResourceNumber() >= bestResourceNumber)
 						continue;
 
+					// TODO: Reuse threads between experiments
 					auto result = attemptExperiment(patterns, params);
 					if (result != nullptr)
 					{
