@@ -1,7 +1,5 @@
 #include "ExperimentRunner.h"
 
-#include <iostream>
-
 #include "Experiment.h"
 
 namespace GameOfLife::Experiment {
@@ -17,13 +15,11 @@ namespace GameOfLife::Experiment {
 	{
 	}
 
-	Result ExperimentRunner::run()
+	std::unique_ptr<Result> ExperimentRunner::run()
 	{
 		auto& params = mExperiment.getParameters();
 		auto& pattern = mExperiment.getTargetPattern();
 
-		// TODO: Remove cout
-		std::cout << "Starting attempt with seed " << mSeed << "\n";
 		// Seed the random number generator with the attempt number
 		std::mt19937 rng(mSeed);
 
@@ -46,7 +42,7 @@ namespace GameOfLife::Experiment {
 				{
 					candidate.mCurrentLifetime++;
 					if (candidate.mCurrentLifetime >= params.mMinimumLifetime)
-						return Result{ true, mSeed, generation, std::make_unique<Board>(board) };
+						return std::make_unique<Result>(mSeed, generation, board);
 				}
 				else
 				{
@@ -70,6 +66,6 @@ namespace GameOfLife::Experiment {
 			board.iterate();
 		}
 
-		return Result::Failure();
+		return nullptr;
 	}
 }

@@ -7,22 +7,22 @@ namespace GameOfLife::Experiment {
 
 	struct Result
 	{
-		static Result Failure()
-		{
-			return { false, 0, 0, nullptr };
-		}
+		Result(int seed, int generations, Board& finalBoard)
+			: mSeed(seed)
+			, mGenerations(generations)
+			, mFinalBoard(finalBoard)
+		{}
 
-		bool mSuccess;
-		int mAttempts;
+		int mSeed;
 		int mGenerations;
-		std::unique_ptr<Board> mFinalBoard;
+		Board mFinalBoard;
 	};
 
 	class ExperimentRunner {
 	public:
 		ExperimentRunner(const Experiment& experiment, int seed);
 
-		Result run();
+		std::unique_ptr<Result> run();
 
 	private:
 		const Experiment& mExperiment;

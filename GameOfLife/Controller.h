@@ -43,7 +43,7 @@ namespace GameOfLife
 			{35, 35}, // Board size
 			50, // Initial population
 			100, // Max generations
-			500, // Max attempts
+			50000, // Max attempts
 			10, // Minimum lifetime
 			6, // Threads
 		};

@@ -1,6 +1,9 @@
 #pragma once
 
 #include <memory>
+#include <vector>
+#include <thread>
+#include <mutex>
 
 #include "Pattern.h"
 #include "ExperimentRunner.h"
@@ -34,15 +37,32 @@ namespace GameOfLife::Experiment
 		{
 		}
 
-		Result run();
+		void run();
 
 		const Parameters& getParameters() const { return mParameters; }
 		const Pattern& getTargetPattern() const { return mTargetPattern; }
+
+		// Get the next task to run and pop it from the list
+		// Returns nullptr if there are no more tasks
+		// Thread safe
+		std::unique_ptr<ExperimentRunner> getTask();
+
+		// Set the result of the experiment, and cancel all other tasks
+		// Thread safe
+		void setResult(std::unique_ptr<Result> result);
+
+		// Get a non-owning pointer to the result of the experiment
+		// or nullptr if the experiment failed
+		Result* getResult() { return mResult.get(); }
 	private:
 		// Start all threads and wait for them to finish
-		Result dispatch();
+		void dispatch();
 
-		std::vector<ExperimentRunner> mTasks;
+		std::mutex mTasksLock;
+		std::vector<std::unique_ptr<ExperimentRunner>> mTasks;
+
+		std::mutex mResultLock;
+		std::unique_ptr<Result> mResult;
 
 		Parameters mParameters;
 		Pattern mTargetPattern;

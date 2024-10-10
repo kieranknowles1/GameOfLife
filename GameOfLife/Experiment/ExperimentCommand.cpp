@@ -31,25 +31,24 @@ namespace GameOfLife::Experiment
 
 		Experiment experiment(context->getExperimentParameters(), pattern);
 
-		auto result = experiment.run();
+		experiment.run();
+		auto result = experiment.getResult();
 
-		if (result.mSuccess)
+		if (result != nullptr) {
 			printFinalResult(result);
+			context->setBoard(std::make_unique<Board>(result->mFinalBoard));
+		}
 		else
 			std::cout << "Experiment failed\n";
-
-		context->setBoard(std::move(result.mFinalBoard));
 	}
-	void ExperimentCommand::printFinalResult(Result& result)
+	void ExperimentCommand::printFinalResult(Result* result)
 	{
-		assert(result.mSuccess && "Result must be a success to print");
-
-		std::cout << "Success on attempt " << result.mAttempts << "\n";
-		std::cout << "Final attempt took " << result.mGenerations << " generations\n";
+		std::cout << "Success on attempt " << result->mSeed << "\n";
+		std::cout << "Final attempt took " << result->mGenerations << " generations\n";
 
 		// Get a board based on the initial cells of the final board
-		Board board(result.mFinalBoard->getInitialCells());
-		for (int i = 0; i <= result.mGenerations; i++)
+		Board board(result->mFinalBoard.getInitialCells());
+		for (int i = 0; i <= result->mGenerations; i++)
 		{
 			std::cout << board.toString() << "\n";
 			board.iterate();
