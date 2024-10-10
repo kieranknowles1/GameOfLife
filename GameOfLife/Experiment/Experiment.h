@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "Pattern.h"
+#include "ExperimentRunner.h"
 
 #include "../Array2D.h"
 
@@ -20,25 +21,8 @@ namespace GameOfLife::Experiment
 		int mMaxAttempts;
 		// How long the pattern must survive for the experiment to be considered a success
 		int mMinimumLifetime;
-	};
-
-	struct Result
-	{
-		static Result Failure()
-		{
-			return { false, 0, 0, nullptr};
-		}
-
-		bool mSuccess;
-		int mAttempts;
-		int mGenerations;
-		std::unique_ptr<Board> mFinalBoard;
-	};
-
-	struct Candidate
-	{
-		Vec2 mPosition;
-		int mCurrentLifetime;
+		// The number of threads to use
+		int mThreads;
 	};
 
 	class Experiment
@@ -51,8 +35,14 @@ namespace GameOfLife::Experiment
 		}
 
 		Result run();
+
+		const Parameters& getParameters() const { return mParameters; }
+		const Pattern& getTargetPattern() const { return mTargetPattern; }
 	private:
-		Result runSingleAttempt(int attempt);
+		// Start all threads and wait for them to finish
+		Result dispatch();
+
+		std::vector<ExperimentRunner> mTasks;
 
 		Parameters mParameters;
 		Pattern mTargetPattern;

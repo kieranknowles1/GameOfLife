@@ -78,6 +78,9 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Experiment\ExperimentRunner.cpp">
+      <Filter>Source Files\Experiment</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Array2D.h">
@@ -132,6 +135,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Experiment\ExperimentCommand.h">
+      <Filter>Header Files\Experiment</Filter>
+    </ClInclude>
+    <ClInclude Include="Experiment\ExperimentRunner.h">
       <Filter>Header Files\Experiment</Filter>
     </ClInclude>
   </ItemGroup>

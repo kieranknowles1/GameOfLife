@@ -139,6 +139,7 @@
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Experiment\Experiment.cpp" />
     <ClCompile Include="Experiment\ExperimentCommand.cpp" />
+    <ClCompile Include="Experiment\ExperimentRunner.cpp" />
     <ClCompile Include="Experiment\Frame.cpp" />
     <ClCompile Include="Experiment\Pattern.cpp" />
     <ClCompile Include="HelpCommand.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Experiment\Experiment.h" />
     <ClInclude Include="Experiment\ExperimentCommand.h" />
+    <ClInclude Include="Experiment\ExperimentRunner.h" />
     <ClInclude Include="Experiment\Frame.h" />
     <ClInclude Include="Experiment\Pattern.h" />
     <ClInclude Include="HelpCommand.h" />

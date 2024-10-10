@@ -8,6 +8,8 @@
 #include "../Controller.h"
 #include "../Serializer.h"
 
+#include "ExperimentRunner.h"
+
 namespace GameOfLife::Experiment
 {
 	ExperimentCommand::ExperimentCommand(std::string_view args)
