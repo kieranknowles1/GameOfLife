@@ -19,7 +19,7 @@ namespace GameOfLife::Experiment
 			{30, 30},
 			100,
 			100,
-			100,
+			500,
 			10
 		};
 	}
@@ -27,7 +27,7 @@ namespace GameOfLife::Experiment
 	void ExperimentCommand::execute(Controller* context)
 	{
 		// TODO: Load the pattern from args
-		std::ifstream file("./pattern/blinker.txt");
+		std::ifstream file("./pattern/glider.txt");
 		std::string data(std::istreambuf_iterator<char>(file), {});
 
 		Pattern pattern = Serializer::deserializePattern(data);

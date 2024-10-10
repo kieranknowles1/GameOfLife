@@ -20,6 +20,9 @@ namespace GameOfLife::Experiment
 			, mOffset(offset)
 		{}
 
+		// Get the current position of the pattern at a specific frame number
+		Vec2 getCurrentPosition(Vec2 startingPosition, int frameNumber) const;
+
 		// Get all positions of the pattern's first frame in the board
 		std::vector<Vec2> findInstances(const Board& board) const;
 
