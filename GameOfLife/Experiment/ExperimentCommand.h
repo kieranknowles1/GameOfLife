@@ -23,6 +23,6 @@ namespace GameOfLife::Experiment
 	private:
 		std::string mExperiment;
 
-		void printFinalResult(Result* result);
+		void printFinalResult(Experiment* experiment, Result* result);
 	};
 }

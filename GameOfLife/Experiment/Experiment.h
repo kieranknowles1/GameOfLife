@@ -47,6 +47,10 @@ namespace GameOfLife::Experiment
 		// Thread safe
 		std::unique_ptr<ExperimentRunner> getTask();
 
+		// Get the total number of attempts that have been run
+		// Locks the task list
+		int getTotalAttempts();
+
 		// Set the result of the experiment, and cancel all other tasks
 		// Thread safe
 		void setResult(std::unique_ptr<Result> result);
@@ -60,6 +64,7 @@ namespace GameOfLife::Experiment
 
 		std::mutex mTasksLock;
 		std::vector<std::unique_ptr<ExperimentRunner>> mTasks;
+		int mTotalAttempts = 0;
 
 		std::mutex mResultLock;
 		std::unique_ptr<Result> mResult;

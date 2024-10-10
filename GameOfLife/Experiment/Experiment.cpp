@@ -22,8 +22,15 @@ namespace GameOfLife::Experiment {
 			return nullptr;
 		auto task = std::move(mTasks.back());
 		mTasks.pop_back();
+		mTotalAttempts++;
 
 		return std::move(task);
+	}
+
+	int Experiment::getTotalAttempts()
+	{
+		std::lock_guard<std::mutex> guard(mTasksLock);
+		return mTotalAttempts;
 	}
 
 	void Experiment::setResult(std::unique_ptr<Result> result)
