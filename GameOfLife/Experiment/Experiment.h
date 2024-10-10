@@ -26,6 +26,13 @@ namespace GameOfLife::Experiment
 		int mMinimumLifetime;
 		// The number of threads to use
 		int mThreads;
+
+		// Get the efficiency resource number of an experiment with these parameters
+		// Defined as the sum of the board size and the initial population
+		int getEfficiencyResourceNumber() const
+		{
+			return mBoardSize.x + mBoardSize.y + mInitialPopulation;
+		}
 	};
 
 	class Experiment
@@ -37,7 +44,7 @@ namespace GameOfLife::Experiment
 		{
 		}
 
-		void run();
+		std::unique_ptr<Result> run();
 
 		const Parameters& getParameters() const { return mParameters; }
 		const std::vector<Pattern>& getTargetPatterns() const { return mTargetPatterns; }
@@ -54,10 +61,6 @@ namespace GameOfLife::Experiment
 		// Set the result of the experiment, and cancel all other tasks
 		// Thread safe
 		void setResult(std::unique_ptr<Result> result);
-
-		// Get a non-owning pointer to the result of the experiment
-		// or nullptr if the experiment failed
-		Result* getResult() { return mResult.get(); }
 	private:
 		// Start all threads and wait for them to finish
 		void dispatch();

@@ -5,13 +5,15 @@
 #include "ExperimentRunner.h"
 
 namespace GameOfLife::Experiment {
-	void Experiment::run()
+	std::unique_ptr<Result> Experiment::run()
 	{
 		for (int attempt = 0; attempt < mParameters.mMaxAttempts; attempt++)
 		{
 			mTasks.emplace_back(std::make_unique<ExperimentRunner>(*this, attempt));
 		}
 		dispatch();
+
+		return std::move(mResult);
 	}
 
 	std::unique_ptr<ExperimentRunner> Experiment::getTask()

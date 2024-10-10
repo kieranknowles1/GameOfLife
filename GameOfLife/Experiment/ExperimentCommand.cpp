@@ -44,11 +44,10 @@ namespace GameOfLife::Experiment
 
 		Experiment experiment(context->getExperimentParameters(), patterns);
 
-		experiment.run();
-		auto result = experiment.getResult();
+		auto result = experiment.run();
 
 		if (result != nullptr) {
-			printFinalResult(&experiment, result);
+			printFinalResult(&experiment, result.get());
 			context->setBoard(std::make_unique<Board>(result->mFinalBoard));
 		}
 		else

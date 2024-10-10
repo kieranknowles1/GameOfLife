@@ -31,6 +31,8 @@ namespace GameOfLife::Experiment
 		// If the frame number is higher than the number of frames,
 		// it will loop back and move by mOffset
 		bool existsAtPosition(const Board& board, Vec2 position, int frameNumber) const;
+
+		Vec2 getSize() const { return mSize; }
 	private:
 		std::vector<Frame> mFrames;
 		// The total size of the pattern and all its frames

@@ -10,6 +10,7 @@
 #include "LoadCommand.h"
 #include "QuitCommand.h"
 #include "Experiment/ExperimentCommand.h"
+#include "Experiment/EfficiencyCommand.h"
 
 namespace GameOfLife {
 	void registerDefaultCommands(CommandParser* parser)
@@ -24,6 +25,7 @@ namespace GameOfLife {
 		parser->registerFactory(new CommandFactoryImpl<LoadCommand>());
 		parser->registerFactory(new CommandFactoryImpl<QuitCommand>());
 		parser->registerFactory(new CommandFactoryImpl<Experiment::ExperimentCommand>());
+		parser->registerFactory(new CommandFactoryImpl<Experiment::EfficiencyCommand>());
 	}
 
 	CommandParser::~CommandParser()

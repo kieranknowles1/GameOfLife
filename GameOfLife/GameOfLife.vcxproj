@@ -137,6 +137,7 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandParser.cpp" />
     <ClCompile Include="Controller.cpp" />
+    <ClCompile Include="Experiment\EfficiencyCommand.cpp" />
     <ClCompile Include="Experiment\Experiment.cpp" />
     <ClCompile Include="Experiment\ExperimentCommand.cpp" />
     <ClCompile Include="Experiment\ExperimentRunner.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandParser.h" />
     <ClInclude Include="Controller.h" />
+    <ClInclude Include="Experiment\EfficiencyCommand.h" />
     <ClInclude Include="Experiment\Experiment.h" />
     <ClInclude Include="Experiment\ExperimentCommand.h" />
     <ClInclude Include="Experiment\ExperimentRunner.h" />
