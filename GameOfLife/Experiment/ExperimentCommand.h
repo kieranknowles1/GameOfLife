@@ -12,8 +12,8 @@ namespace GameOfLife::Experiment
 		static constexpr std::string_view Identifier = "test";
 		static constexpr std::string_view Summary = "Run an experiment";
 		static constexpr std::string_view Usage =
-			"test [pattern]\n"
-			"  pattern: The name of the pattern to test\n"
+			"test [patterns...]\n"
+			"  patterns: The name of the patterns to find\n"
 			" The final state of the board will be stored, and can be manipulated with the usual commands\n";
 
 
@@ -21,7 +21,7 @@ namespace GameOfLife::Experiment
 
 		void execute(Controller* context) override;
 	private:
-		std::string mExperiment;
+		std::vector<std::string> mExperiment;
 
 		void printFinalResult(Experiment* experiment, Result* result);
 	};

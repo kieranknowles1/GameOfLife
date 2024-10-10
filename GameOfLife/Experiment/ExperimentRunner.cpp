@@ -5,6 +5,13 @@
 namespace GameOfLife::Experiment {
 	struct Candidate
 	{
+		Candidate(const Pattern* pattern, Vec2 position)
+			: mPattern(pattern)
+			, mPosition(position)
+			, mCurrentLifetime(1) // Already seen the first frame
+		{}
+
+		const Pattern* mPattern;
 		Vec2 mPosition;
 		int mCurrentLifetime;
 	};
@@ -18,7 +25,7 @@ namespace GameOfLife::Experiment {
 	std::unique_ptr<Result> ExperimentRunner::run()
 	{
 		auto& params = mExperiment.getParameters();
-		auto& pattern = mExperiment.getTargetPattern();
+		auto& patterns = mExperiment.getTargetPatterns();
 
 		// Seed the random number generator with the attempt number
 		std::mt19937 rng(mSeed);
@@ -37,7 +44,7 @@ namespace GameOfLife::Experiment {
 			{
 				auto& candidate = candidates[i];
 				auto frame = candidate.mCurrentLifetime;
-				bool alive = pattern.existsAtPosition(board, candidate.mPosition, frame);
+				bool alive = candidate.mPattern->existsAtPosition(board, candidate.mPosition, frame);
 				if (alive)
 				{
 					candidate.mCurrentLifetime++;
@@ -52,15 +59,12 @@ namespace GameOfLife::Experiment {
 				}
 			}
 
-			// TODO: Find any patterns on their first frame, track
-			// these as candidates, and return success if any of them
-			// survive long enough
-			auto found = pattern.findInstances(board);
-			for (auto& item : found)
-			{
-				// The first frame has already been seen, we will
-				// look at frame 2 next
-				candidates.emplace_back(Candidate{ item, 1 });
+			for (auto& pattern : patterns) {
+				auto found = pattern.findInstances(board);
+				for (auto& item : found)
+				{
+					candidates.emplace_back(&pattern, item);
+				}
 			}
 
 			board.iterate();

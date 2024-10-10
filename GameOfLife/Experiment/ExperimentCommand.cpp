@@ -19,17 +19,30 @@ namespace GameOfLife::Experiment
 		if (args.empty()) {
 			throw std::invalid_argument("Experiment not specified");
 		}
-		mExperiment = std::string(args);
+
+		std::stringstream ss(args.data());
+		std::string item;
+
+		while (std::getline(ss, item, ' ')) {
+			mExperiment.push_back(item);
+		}
 	}
 
 	void ExperimentCommand::execute(Controller* context)
 	{
-		std::ifstream file("./pattern/" + mExperiment + ".txt");
-		std::string data(std::istreambuf_iterator<char>(file), {});
+		std::vector<Pattern> patterns;
+		for (const auto& experiment : mExperiment)
+		{
+			std::ifstream file("./pattern/" + experiment + ".txt");
+			if (!file.good())
+				throw std::runtime_error("Pattern not found: " + experiment);
+			std::string data(std::istreambuf_iterator<char>(file), {});
 
-		Pattern pattern = Serializer::deserializePattern(data);
+			Pattern pattern = Serializer::deserializePattern(data);
+			patterns.push_back(pattern);
+		}
 
-		Experiment experiment(context->getExperimentParameters(), pattern);
+		Experiment experiment(context->getExperimentParameters(), patterns);
 
 		experiment.run();
 		auto result = experiment.getResult();

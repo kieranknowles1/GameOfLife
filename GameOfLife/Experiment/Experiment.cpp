@@ -65,6 +65,8 @@ namespace GameOfLife::Experiment {
 
 	void Experiment::dispatch()
 	{
+		// Thread creation is fairly expensive, so create a fixed number and reuse them
+		// between attempts
 		std::vector<std::thread> threads;
 
 		for (int i = 0; i < mParameters.mThreads; i++)

@@ -31,16 +31,16 @@ namespace GameOfLife::Experiment
 	class Experiment
 	{
 	public:
-		Experiment(Parameters parameters, Pattern targetPattern)
+		Experiment(Parameters parameters, std::vector<Pattern>& targetPatterns)
 			: mParameters(parameters)
-			, mTargetPattern(targetPattern)
+			, mTargetPatterns(targetPatterns)
 		{
 		}
 
 		void run();
 
 		const Parameters& getParameters() const { return mParameters; }
-		const Pattern& getTargetPattern() const { return mTargetPattern; }
+		const std::vector<Pattern>& getTargetPatterns() const { return mTargetPatterns; }
 
 		// Get the next task to run and pop it from the list
 		// Returns nullptr if there are no more tasks
@@ -70,7 +70,7 @@ namespace GameOfLife::Experiment
 		std::unique_ptr<Result> mResult;
 
 		Parameters mParameters;
-		Pattern mTargetPattern;
+		std::vector<Pattern> mTargetPatterns;
 	};
 }
 
