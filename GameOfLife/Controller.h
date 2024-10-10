@@ -41,9 +41,9 @@ namespace GameOfLife
 
 		Experiment::Parameters mExperimentParameters = {
 			{35, 35}, // Board size
-			50, // Initial population
+			100, // Initial population
 			100, // Max generations
-			50000, // Max attempts
+			500000, // Max attempts
 			10, // Minimum lifetime
 			6, // Threads
 		};
