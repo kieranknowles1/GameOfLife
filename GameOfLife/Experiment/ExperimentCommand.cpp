@@ -27,7 +27,7 @@ namespace GameOfLife::Experiment
 	void ExperimentCommand::execute(Controller* context)
 	{
 		// TODO: Load the pattern from args
-		std::ifstream file("./pattern/glider.txt");
+		std::ifstream file("./pattern/beehive.txt");
 		std::string data(std::istreambuf_iterator<char>(file), {});
 
 		Pattern pattern = Serializer::deserializePattern(data);
