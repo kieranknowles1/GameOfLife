@@ -13,26 +13,21 @@ namespace GameOfLife::Experiment
 	ExperimentCommand::ExperimentCommand(std::string_view args)
 	{
 		// TODO: Parse arguments
-		// TODO: Allow selecting an experiment and loading from disk
-
-		mParameters = {
-			{30, 30},
-			100,
-			100,
-			500,
-			10
-		};
+		// TODO: Allow setting parameters for the experiment
+		if (args.empty()) {
+			throw std::invalid_argument("Experiment not specified");
+		}
+		mExperiment = std::string(args);
 	}
 
 	void ExperimentCommand::execute(Controller* context)
 	{
-		// TODO: Load the pattern from args
-		std::ifstream file("./pattern/beehive.txt");
+		std::ifstream file("./pattern/" + mExperiment + ".txt");
 		std::string data(std::istreambuf_iterator<char>(file), {});
 
 		Pattern pattern = Serializer::deserializePattern(data);
 
-		Experiment experiment(mParameters, pattern);
+		Experiment experiment(context->getExperimentParameters(), pattern);
 
 		auto result = experiment.run();
 

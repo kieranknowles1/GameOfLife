@@ -5,6 +5,7 @@
 #include "Board.h"
 #include "Command.h"
 #include "CommandParser.h"
+#include "Experiment/Experiment.h"
 
 namespace GameOfLife
 {
@@ -31,10 +32,20 @@ namespace GameOfLife
 		std::string_view getSaveDirectory() const {
 			return "./save";
 		}
+
+		Experiment::Parameters& getExperimentParameters() { return mExperimentParameters; }
 	private:
 		std::unique_ptr<CommandParser> mParser;
 
 		std::unique_ptr<Board> mBoard;
+
+		Experiment::Parameters mExperimentParameters = {
+			{35, 35}, // Board size
+			50, // Initial population
+			100, // Max generations
+			500, // Max attempts
+			10 // Minimum lifetime
+		};
 
 		bool mQuitRequested = false;
 
