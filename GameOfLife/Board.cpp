@@ -75,26 +75,20 @@ namespace GameOfLife {
 
 	int Board::getAliveNeighbours(Vec2 pos)
 	{
-		auto neighbours = {
-			Vec2(pos.x - 1, pos.y - 1), // top left
-			Vec2(pos.x, pos.y - 1), // top
-			Vec2(pos.x + 1, pos.y - 1), // top right
-			Vec2(pos.x - 1, pos.y), // left
-			Vec2(pos.x + 1, pos.y), // right
-			Vec2(pos.x - 1, pos.y + 1), // bottom left
-			Vec2(pos.x, pos.y + 1), // bottom
-			Vec2(pos.x + 1, pos.y + 1) // bottom right
-		};
-
-		int aliveNeighbours = 0;
-		for (auto neighbour : neighbours)
+		int alive = 0;
+		for (int x = pos.x - 1; x <= pos.x + 1; x++)
 		{
-			if (mCells.isValid(neighbour) && mCells[neighbour] == CellState::Alive)
+			for (int y = pos.y - 1; y <= pos.y + 1; y++)
 			{
-				++aliveNeighbours;
+				auto neighbour = Vec2(x, y);
+				if (neighbour == pos || !mCells.isValid(neighbour))
+					continue;
+
+				if (mCells[neighbour] == CellState::Alive)
+					alive++;
 			}
 		}
-		return aliveNeighbours;
+		return alive;
 	}
 
 	std::string Board::toString()

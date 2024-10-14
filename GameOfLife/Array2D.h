@@ -27,6 +27,11 @@ namespace GameOfLife {
 		{
 			return { x * scalar, y * scalar };
 		}
+
+		bool operator==(Vec2 other) const
+		{
+			return x == other.x && y == other.y;
+		}
 	};
 
 	// 2D array. Size must be known at construction time.
