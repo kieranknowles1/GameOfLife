@@ -14,7 +14,7 @@ namespace GameOfLife::Experiment
 	std::vector<Vec2> Pattern::findInstances(const Board& board) const
 	{
 		auto& frame = mFrames[0];
-		
+
 		return frame.findInstances(board);
 	}
 
@@ -25,7 +25,6 @@ namespace GameOfLife::Experiment
 		int frameIndex = frameNumber % mFrames.size();
 
 		auto& frame = mFrames[frameIndex];
-		// TODO: Does this handle gliders properly?
 
 		return frame.pointContains(getCurrentPosition(position, frameNumber), board);
 	}

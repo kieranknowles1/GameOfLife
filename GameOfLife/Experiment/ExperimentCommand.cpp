@@ -14,8 +14,6 @@ namespace GameOfLife::Experiment
 {
 	ExperimentCommand::ExperimentCommand(std::string_view args)
 	{
-		// TODO: Parse arguments
-		// TODO: Allow setting parameters for the experiment
 		if (args.empty()) {
 			throw std::invalid_argument("Experiment not specified");
 		}
