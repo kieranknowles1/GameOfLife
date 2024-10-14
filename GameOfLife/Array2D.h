@@ -5,6 +5,8 @@
 #include <stdexcept>
 #include <vector>
 
+#include "Serializer.h"
+
 namespace GameOfLife {
 
 	struct Vec2
@@ -70,16 +72,8 @@ namespace GameOfLife {
 		}
 		// Load an Array2D from a string
 		static Array2D deserialize(std::stringstream& str) {
-			std::string sizeLine;
-			std::getline(str, sizeLine);
-			auto space = sizeLine.find(' ');
-			if (space == std::string::npos)
-				throw std::invalid_argument("Invalid size line: " + sizeLine);
-
-			int width = std::stoi(sizeLine.substr(0, space));
-			int height = std::stoi(sizeLine.substr(space + 1));
-
-			auto arr = Array2D({ width, height });
+			auto size = Serializer::readVec2(str);
+			auto arr = Array2D(size);
 			arr.deserializeBody(str);
 			return arr;
 		}

@@ -2,8 +2,12 @@
 
 #include <sstream>
 
+#include "Array2D.h"
+#include "Board.h"
+#include "Experiment/Pattern.h"
+
 namespace GameOfLife {
-	std::string getLine(std::stringstream& stream)
+	std::string Serializer::getLine(std::stringstream& stream)
 	{
 		std::string line;
 		std::getline(stream, line);
@@ -11,10 +15,10 @@ namespace GameOfLife {
 	}
 
 	// Check that the version number matches what we expect
-	void checkVersion(std::stringstream& stream)
+	void Serializer::checkVersion(std::stringstream& stream)
 	{
 		int version = std::stoi(getLine(stream));
-		if (version != Serializer::Version)
+		if (version != Version)
 			throw std::runtime_error("Invalid version, got " + std::to_string(version) + " expected " + std::to_string(Serializer::Version));
 	}
 
@@ -53,12 +57,7 @@ namespace GameOfLife {
 
 		std::vector<Experiment::Frame> frames;
 
-		// TODO: ReadVector function
-		auto offsetLine = getLine(stream);
-		auto space = offsetLine.find(' ');
-		int x = std::stoi(offsetLine.substr(0, space));
-		int y = std::stoi(offsetLine.substr(space + 1));
-		Vec2 offset{ x, y };
+		auto offset = readVec2(stream);
 
 		for (int i = 0; i < frameCount; i++) {
 			auto cells = Array2D<CellState>::deserialize(stream);
@@ -66,5 +65,14 @@ namespace GameOfLife {
 		}
 
 		return Experiment::Pattern(frames, frames[0].getSize(), offset);
+	}
+
+	Vec2 Serializer::readVec2(std::stringstream& stream)
+	{
+		auto line = getLine(stream);
+		auto space = line.find(' ');
+		int x = std::stoi(line.substr(0, space));
+		int y = std::stoi(line.substr(space + 1));
+		return Vec2{ x, y };
 	}
 }

@@ -1,5 +1,7 @@
 #include "Cell.h"
 
+#include "Serializer.h"
+
 namespace GameOfLife {
 	std::string Array2D<CellState>::serializeBody() const {
 		std::string result;
@@ -17,8 +19,7 @@ namespace GameOfLife {
 
 	void Array2D<CellState>::deserializeBody(std::stringstream& str) {
 		for (int y = 0; y < mSize.y; y++) {
-			std::string line;
-			std::getline(str, line);
+			auto line = Serializer::getLine(str);
 			if (line.size() != mSize.x)
 				throw std::runtime_error("Invalid line length: " + line);
 
