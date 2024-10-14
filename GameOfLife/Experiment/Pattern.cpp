@@ -2,18 +2,6 @@
 
 namespace GameOfLife::Experiment
 {
-	Pattern::Pattern()
-		: mSize({ 4, 4 })
-		, mOffset({ 0, 0 })
-	{
-		auto cells = Array2D<CellState>(mSize);
-		cells[{1, 1}] = CellState::Alive;
-		cells[{2, 1}] = CellState::Alive;
-		cells[{1, 2}] = CellState::Alive;
-		cells[{2, 2}] = CellState::Alive;
-		mFrames.push_back(Frame(cells));
-	}
-
 	Vec2 Pattern::getCurrentPosition(Vec2 startingPosition, int frameNumber) const
 	{
 		int frameIndex = frameNumber % mFrames.size();

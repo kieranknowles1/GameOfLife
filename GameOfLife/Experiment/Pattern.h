@@ -11,9 +11,6 @@ namespace GameOfLife::Experiment
 	class Pattern
 	{
 	public:
-		// TODO: Temporary constructor for testing
-		Pattern();
-
 		Pattern(std::vector<Frame> frames, Vec2 size, Vec2 offset)
 			: mFrames(std::move(frames))
 			, mSize(size)
