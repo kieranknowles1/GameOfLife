@@ -11,6 +11,7 @@
 #include "QuitCommand.h"
 #include "Experiment/ExperimentCommand.h"
 #include "Experiment/EfficiencyCommand.h"
+#include "Experiment/OptionCommand.h"
 
 namespace GameOfLife {
 	void registerDefaultCommands(CommandParser* parser)
@@ -26,6 +27,7 @@ namespace GameOfLife {
 		parser->registerFactory(new CommandFactoryImpl<QuitCommand>());
 		parser->registerFactory(new CommandFactoryImpl<Experiment::ExperimentCommand>());
 		parser->registerFactory(new CommandFactoryImpl<Experiment::EfficiencyCommand>());
+		parser->registerFactory(new CommandFactoryImpl<Experiment::OptionCommand>());
 	}
 
 	CommandParser::~CommandParser()
