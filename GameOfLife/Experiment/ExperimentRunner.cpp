@@ -3,18 +3,10 @@
 #include "Experiment.h"
 
 namespace GameOfLife::Experiment {
-	struct Candidate
+	bool Candidate::isAlive(const Board& board) const
 	{
-		Candidate(const Pattern* pattern, Vec2 position)
-			: mPattern(pattern)
-			, mPosition(position)
-			, mCurrentLifetime(1) // Already seen the first frame
-		{}
-
-		const Pattern* mPattern;
-		Vec2 mPosition;
-		int mCurrentLifetime;
-	};
+		return mPattern->existsAtPosition(board, mPosition, mCurrentLifetime);
+	}
 
 	ExperimentRunner::ExperimentRunner(const Experiment& experiment, int seed)
 		: mExperiment(experiment)
@@ -43,9 +35,7 @@ namespace GameOfLife::Experiment {
 			for (int i = 0; i < candidates.size(); i++)
 			{
 				auto& candidate = candidates[i];
-				auto frame = candidate.mCurrentLifetime;
-				bool alive = candidate.mPattern->existsAtPosition(board, candidate.mPosition, frame);
-				if (alive || mExperiment.getParameters().mMinimumLifetime < 2)
+				if (candidate.isAlive(board) || mExperiment.getParameters().mMinimumLifetime < 2)
 				{
 					candidate.mCurrentLifetime++;
 					if (candidate.mCurrentLifetime >= params.mMinimumLifetime)
@@ -59,17 +49,23 @@ namespace GameOfLife::Experiment {
 				}
 			}
 
-			for (auto& pattern : patterns) {
-				auto found = pattern.findInstances(board);
-				for (auto& item : found)
-				{
-					candidates.emplace_back(&pattern, item);
-				}
-			}
+			findCandidates(board, candidates);
 
 			board.iterate();
 		}
 
 		return nullptr;
+	}
+
+	void ExperimentRunner::findCandidates(const Board& board, std::vector<Candidate>& out)
+	{
+		for (auto& pattern : mExperiment.getTargetPatterns())
+		{
+			auto found = pattern.findInstances(board);
+			for (auto& item : found)
+			{
+				out.emplace_back(&pattern, item);
+			}
+		}
 	}
 }
