@@ -42,14 +42,6 @@ namespace GameOfLife {
 		{
 			throw std::runtime_error("No board loaded");
 		}
-
-		for (int i = 0; i < mIterations; i++)
-		{
-			board->iterate();
-			if (mLoud)
-			{
-				std::cout << board->toString() << std::endl;
-			}
-		}
+		board->iterate(mIterations, mLoud);
 	}
 }

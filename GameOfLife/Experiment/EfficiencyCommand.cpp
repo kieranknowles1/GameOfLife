@@ -108,11 +108,8 @@ namespace GameOfLife::Experiment
 
 			// Get a board based on the initial cells of the final board
 			Board board(experimentResult->mFinalBoard.getInitialCells());
-			for (int i = 0; i <= experimentResult->mGenerations; i++)
-			{
-				std::cout << board.toString() << "\n";
-				board.iterate();
-			}
+			board.iterate(experimentResult->mGenerations, true);
+			for (int i = 0; i <= experimentResult->mGenerations; i++);
 		}
 	}
 }

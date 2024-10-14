@@ -56,6 +56,18 @@ namespace GameOfLife {
 		mCells = newCells;
 	}
 
+	void Board::iterate(int iterations, bool print)
+	{
+		for (int i = 0; i < iterations; i++)
+		{
+			iterate();
+			if (print)
+			{
+				std::cout << toString() << std::endl;
+			}
+		}
+	}
+
 	CellState Board::getNewState(int aliveNeighbours, CellState state)
 	{
 		switch (state)

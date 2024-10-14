@@ -28,6 +28,8 @@ namespace GameOfLife {
 
 		// Run one iteration of the game of life
 		void iterate();
+		// Run a number of iterations of the game of life, optionally printing the board at each step
+		void iterate(int generations, bool print = false);
 
 		std::string toString();
 
