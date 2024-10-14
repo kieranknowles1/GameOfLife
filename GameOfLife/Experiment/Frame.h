@@ -22,6 +22,11 @@ namespace GameOfLife::Experiment
 		bool pointContains(const Vec2 topLeft, const Board& board) const;
 
 		Vec2 getSize() { return mCells.getSize(); }
+
+		// Get the number of cells in the frame
+		int getCellCount() const;
+
+		const Array2D<CellState>& getCells() const { return mCells; }
 	private:
 
 		Array2D<CellState> mCells;

@@ -29,53 +29,62 @@ namespace GameOfLife::Experiment
 		std::string data(std::istreambuf_iterator<char>(file), {});
 
 		Pattern pattern = Serializer::deserializePattern(data);
-		std::vector<Pattern> patterns = { pattern };
 
-		// It's impossible for the pattern to exist in a smaller board than its size
-		Vec2 initialSize = pattern.getSize();
+		// The ERN that would come from placing the pattern directly in the top left corner
+		// This will be the worst case scenario and an upper bound for our tests
+		int bruteForceErn = pattern.getCellCount() + pattern.getSize().x + pattern.getSize().y;
 
-		Vec2 maxSize = initialSize + Vec2{ 10, 10 };
+		auto result = runTests(pattern, bruteForceErn);
 
+		
+		printFinalResult(&result, &pattern);
+	}
+
+	static int ern(int width = 0, int height = 0, int cells = 0)
+	{
+		return cells + width + height;
+	}
+
+	EfficiencyResult EfficiencyCommand::runTests(Pattern& pattern, int bruteForceErn)
+	{
+		std::vector<Pattern> patternVec{ pattern };
+
+		int bestResourceNumber = bruteForceErn;
 		std::unique_ptr<Result> best = nullptr;
-		int bestResourceNumber = std::numeric_limits<int>::max();
 
-		for (int x = initialSize.x; x < maxSize.x; x++)
+		for (int width = pattern.getSize().x; ern(width) < bestResourceNumber; width++)
 		{
-			for (int y = initialSize.y; y < maxSize.y; y++)
+			for (int height = pattern.getSize().y; ern(width, height) < bestResourceNumber; height++)
 			{
-				Vec2 size{ x, y };
-				int maxCells = std::min(MaxCells, size.x * size.y);
-				for (int cells = MinPossibleCells; cells <= maxCells; cells++)
+				for (int cells = MinPossibleCells; ern(width, height, cells) < bestResourceNumber; cells++)
 				{
 					Parameters params{
-						size,
+						{ width, height },
 						cells,
 						50, // Max generations, pattern should be apparent by then
 						10000, // Max attempts
-						4, // Minimum lifetime
+						1, // Minimum lifetime
 						6, // Threads
 					};
 
-					// There's no point in testing if the params would be less efficient than the best result already found
-					if (params.getEfficiencyResourceNumber() >= bestResourceNumber)
-						continue;
+					auto result = attemptExperiment(patternVec, params);
 
-					// TODO: Reuse threads between experiments
-					auto result = attemptExperiment(patterns, params);
-					if (result != nullptr)
-					{
-						best = std::move(result);
-						bestResourceNumber = params.getEfficiencyResourceNumber();
+					if (result != nullptr) {
+						return {
+							params,
+							std::move(result)
+						};
 					}
 				}
 			}
 		}
 
-		if (best != nullptr)
-			printFinalResult(best.get(), bestResourceNumber);
-		else
-			std::cout << "No result found\n";
+		return {
+			Parameters{},
+			nullptr
+		};
 	}
+
 
 	std::unique_ptr<Result> EfficiencyCommand::attemptExperiment(std::vector<Pattern>& patterns, Parameters& params)
 	{
@@ -84,18 +93,26 @@ namespace GameOfLife::Experiment
 		return experiment.run();
 	}
 
-	void EfficiencyCommand::printFinalResult(Result* result, int ern)
+	void EfficiencyCommand::printFinalResult(EfficiencyResult* result, Pattern* pattern)
 	{
-		std::cout << "ERN: " << ern << "\n";
-		std::cout << result->mFinalBoard.getSize().x << " " << result->mFinalBoard.getSize().y << "\n";
-		std::cout << "Seed: " << result->mSeed << "\n";
+		auto experimentResult = result->result.get();
 
-		// Get a board based on the initial cells of the final board
-		Board board(result->mFinalBoard.getInitialCells());
-		for (int i = 0; i <= result->mGenerations; i++)
-		{
-			std::cout << board.toString() << "\n";
-			board.iterate();
+		if (experimentResult == nullptr) {
+			std::cout << "Best ERN appears to be brute force: ERN = " << ern(pattern->getSize().x, pattern->getSize().y, pattern->getCellCount()) << "\n";
+			std::cout << pattern->getFrame(0).getCells().serializeBody() << "\n";
+		}
+		else {
+			std::cout << "ERN: " << result->params.getEfficiencyResourceNumber() << "\n";
+			std::cout << experimentResult->mFinalBoard.getSize().x << " " << experimentResult->mFinalBoard.getSize().y << "\n";
+			std::cout << "Seed: " << experimentResult->mSeed << "\n";
+
+			// Get a board based on the initial cells of the final board
+			Board board(experimentResult->mFinalBoard.getInitialCells());
+			for (int i = 0; i <= experimentResult->mGenerations; i++)
+			{
+				std::cout << board.toString() << "\n";
+				board.iterate();
+			}
 		}
 	}
 }

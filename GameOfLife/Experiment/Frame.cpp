@@ -50,4 +50,18 @@ namespace GameOfLife::Experiment
 
 		return true;
 	}
+
+	int Frame::getCellCount() const
+	{
+		int count = 0;
+		for (int x = 0; x < mCells.getSize().x; x++)
+		{
+			for (int y = 0; y < mCells.getSize().y; y++)
+			{
+				if (mCells[{x, y}] == CellState::Alive)
+					count++;
+			}
+		}
+		return count;
+	}
 }

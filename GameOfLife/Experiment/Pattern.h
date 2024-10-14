@@ -33,6 +33,11 @@ namespace GameOfLife::Experiment
 		bool existsAtPosition(const Board& board, Vec2 position, int frameNumber) const;
 
 		Vec2 getSize() const { return mSize; }
+
+		// Get the number of cells in the frame with the fewest cells
+		int getCellCount() const;
+
+		const Frame& getFrame(int index) const { return mFrames[index]; }
 	private:
 		std::vector<Frame> mFrames;
 		// The total size of the pattern and all its frames

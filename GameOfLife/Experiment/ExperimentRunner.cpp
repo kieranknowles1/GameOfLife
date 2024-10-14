@@ -45,7 +45,7 @@ namespace GameOfLife::Experiment {
 				auto& candidate = candidates[i];
 				auto frame = candidate.mCurrentLifetime;
 				bool alive = candidate.mPattern->existsAtPosition(board, candidate.mPosition, frame);
-				if (alive)
+				if (alive || mExperiment.getParameters().mMinimumLifetime < 2)
 				{
 					candidate.mCurrentLifetime++;
 					if (candidate.mCurrentLifetime >= params.mMinimumLifetime)

@@ -6,13 +6,18 @@
 
 namespace GameOfLife::Experiment
 {
+	struct EfficiencyResult
+	{
+		Parameters params;
+		std::unique_ptr<Result> result;
+	};
+
 	class EfficiencyCommand : public Command
 	{
 	public:
 		// A cell needs 3 neighbours to be born and 2 to survive, so anything with less than 3 cells
 		// will die immediately
 		static constexpr int MinPossibleCells = 3;
-		static constexpr int MaxCells = 50;
 
 		static constexpr std::string_view Identifier = "ern";
 		static constexpr std::string_view Summary = "Get the efficiency resource number of a pattern";
@@ -28,8 +33,10 @@ namespace GameOfLife::Experiment
 	private:
 		std::string mExperiment;
 
+		EfficiencyResult runTests(Pattern& pattern, int bruteForceErn);
+
 		std::unique_ptr<Result> attemptExperiment(std::vector<Pattern>& patterns, Parameters& params);
 
-		void printFinalResult(Result* result, int ern);
+		void printFinalResult(EfficiencyResult* result, Pattern* pattern);
 	};
 }

@@ -41,4 +41,17 @@ namespace GameOfLife::Experiment
 
 		return frame.pointContains(getCurrentPosition(position, frameNumber), board);
 	}
+
+	int Pattern::getCellCount() const
+	{
+		int lowest = std::numeric_limits<int>::max();
+		for (auto& frame : mFrames)
+		{
+			int count = frame.getCellCount();
+			if (count < lowest)
+				lowest = count;
+		}
+
+		return lowest;
+	}
 }
