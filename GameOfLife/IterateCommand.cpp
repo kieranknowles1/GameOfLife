@@ -7,11 +7,11 @@
 
 namespace GameOfLife {
 	IterateCommand::IterateCommand(std::string_view args)
+		: mLoud(false)
 	{
 		if (args.empty())
 		{
 			mIterations = 1;
-			mLoud = false;
 			return;
 		}
 
