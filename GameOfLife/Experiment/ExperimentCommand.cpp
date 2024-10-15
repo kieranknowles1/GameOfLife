@@ -1,6 +1,5 @@
 #include "ExperimentCommand.h"
 
-#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <cassert>
@@ -31,11 +30,7 @@ namespace GameOfLife::Experiment
 		std::vector<Pattern> patterns;
 		for (const auto& experiment : mExperiment)
 		{
-			std::ifstream file("./pattern/" + experiment + ".txt");
-			if (!file.good())
-				throw std::runtime_error("Pattern not found: " + experiment);
-			std::string data(std::istreambuf_iterator<char>(file), {});
-
+			auto data = Serializer::readFile("./pattern/" + experiment + ".txt");
 			Pattern pattern = Serializer::deserializePattern(data);
 			patterns.push_back(pattern);
 		}

@@ -75,19 +75,11 @@ namespace GameOfLife {
 
 	CellState Board::getNewState(int aliveNeighbours, CellState state)
 	{
-		switch (state)
-		{
-		case CellState::Alive:
-			if (aliveNeighbours < 2)
-				return CellState::Dead; // Underpopulation
-			if (aliveNeighbours > 3)
-				return CellState::Dead; // Overpopulation
-			return CellState::Alive; // Lives on
-		case CellState::Dead:
-			return aliveNeighbours == 3 ? CellState::Alive : CellState::Dead;
-		default:
-			__assume(false && "Invalid CellState"); // Suppress warning about lack of return
-		}
+		if (state == CellState::Dead)
+			return aliveNeighbours == 3 ? CellState::Alive : CellState::Dead; // Birth
+		else // alive
+			// Under/overpopulation
+			return aliveNeighbours == 2 || aliveNeighbours == 3 ? CellState::Alive : CellState::Dead;
 	}
 
 	int Board::getAliveNeighbours(Vec2 pos)
@@ -134,8 +126,6 @@ namespace GameOfLife {
 			}
 			result += "\n";
 		}
-
-		result += corners; // Add the last row of corners
-		return result;
+		return result + corners;
 	}
 }

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <fstream>
+#include <filesystem>
 
 namespace GameOfLife {
 	class Board;
@@ -11,12 +13,16 @@ namespace GameOfLife {
 
 	class Serializer
 	{
+	private:
+		Serializer() = delete; // This is a static class
 	public:
 		// Version of serialize format. Increment when
 		// making a breaking change
 		static constexpr int Version = 3;
 
-		Serializer() = delete; // This is a static class
+		// Read a file in its entirety to a string
+		static std::string readFile(const std::filesystem::path& path);
+		static std::ofstream openWrite(const std::filesystem::path& path);
 
 		static std::string getLine(std::stringstream& stream);
 		static void checkVersion(std::stringstream& stream);

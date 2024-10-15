@@ -7,6 +7,23 @@
 #include "Experiment/Pattern.h"
 
 namespace GameOfLife {
+	std::string Serializer::readFile(const std::filesystem::path& path)
+	{
+		std::ifstream file(path);
+		if (!file.good())
+			throw std::runtime_error("Failed to open file for reading: " + path.string());
+		
+		return std::string(std::istreambuf_iterator<char>(file), {});
+	}
+
+	std::ofstream Serializer::openWrite(const std::filesystem::path& path)
+	{
+		std::ofstream file(path);
+		if (!file.good())
+			throw std::runtime_error("Failed to open file for writing: " + path.string());
+		return std::move(file);
+	}
+
 	std::string Serializer::getLine(std::stringstream& stream)
 	{
 		std::string line;

@@ -1,6 +1,5 @@
 #include "SaveCommand.h"
 
-#include <fstream>
 #include <filesystem>
 #include <iostream>
 
@@ -26,13 +25,7 @@ namespace GameOfLife {
 			throw std::runtime_error("No board to save");
 		}
 
-		auto file = std::ofstream(fullPath);
-		if (!file.good()) {
-			throw std::runtime_error("Failed to open file for writing");
-		}
-
-		auto data = Serializer::serialize(*board);
-		file << data;
-		// C++ closes files automatically when they go out of scope
+		auto file = Serializer::openWrite(fullPath);
+		file << Serializer::serialize(*board);
 	}
 }

@@ -1,6 +1,5 @@
 #include "EfficiencyCommand.h"
 
-#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <cassert>
@@ -23,11 +22,7 @@ namespace GameOfLife::Experiment
 
 	void EfficiencyCommand::execute(Controller* context)
 	{
-		std::ifstream file("./pattern/" + mExperiment + ".txt");
-		if (!file.good())
-			throw std::runtime_error("Pattern not found: " + mExperiment);
-		std::string data(std::istreambuf_iterator<char>(file), {});
-
+		std::string data = Serializer::readFile("./pattern/" + mExperiment + ".txt");
 		Pattern pattern = Serializer::deserializePattern(data);
 
 		// The ERN that would come from placing the pattern directly in the top left corner

@@ -30,7 +30,7 @@ namespace GameOfLife
 		Board* getBoard() { return mBoard.get(); }
 
 		std::string_view getSaveDirectory() const {
-			return "./save";
+			return "./save/";
 		}
 
 		Experiment::Parameters& getExperimentParameters() { return mExperimentParameters; }
