@@ -3,6 +3,11 @@
 Conway's Game of Life, implemented in C++
 for CSC8501 Advanced Programming module at Newcastle University.
 
+## Use of AI
+
+GitHub Copilot was used during development to generate code, primarily to speed up the process of writing boilerplate code
+and when it correctly predicted the next step in a work-in-progress function.
+
 ## Tasks
 - [x] Implement the game of life
   - [x] Input for grid size
