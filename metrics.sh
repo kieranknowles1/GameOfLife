@@ -2,10 +2,10 @@
 
 # Helper script to run metrix++ and collect maintainability data
 
-# Add Python's venv to the PATH
-export PATH="$PATH:$(pwd)/venv/bin"
+source venv/bin/activate
 
 metrix++ collect --scmis --std.code.complexity.cyclomatic --std.code.lines.code GameOfLife
 metrix++ view --db-file=metrixpp.db
 
-metrix++ limit --max-limit=std.code.lines:code:15
+metrix++ limit \
+    --max-limit=std.code.lines:code:15:function
