@@ -84,8 +84,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I $(ProjectDir)pattern $(OutDir)pattern
-mkdir $(OutDir)save</Command>
+      <Command>rmdir /S /Q $(OutDir)pattern
+xcopy /E /I /Y $(ProjectDir)pattern $(OutDir)pattern
+if not exist $(OutDir)save mkdir $(OutDir)save</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,8 +107,9 @@ mkdir $(OutDir)save</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I $(ProjectDir)pattern $(OutDir)pattern
-mkdir $(OutDir)save</Command>
+      <Command>rmdir /S /Q $(OutDir)pattern
+xcopy /E /I /Y $(ProjectDir)pattern $(OutDir)pattern
+if not exist $(OutDir)save mkdir $(OutDir)save</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -124,8 +126,9 @@ mkdir $(OutDir)save</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I $(ProjectDir)pattern $(OutDir)pattern
-mkdir $(OutDir)save</Command>
+      <Command>rmdir /S /Q $(OutDir)pattern
+xcopy /E /I /Y $(ProjectDir)pattern $(OutDir)pattern
+if not exist $(OutDir)save mkdir $(OutDir)save</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,8 +149,9 @@ mkdir $(OutDir)save</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /E /I $(ProjectDir)pattern $(OutDir)pattern
-mkdir $(OutDir)save</Command>
+      <Command>rmdir /S /Q $(OutDir)pattern
+xcopy /E /I /Y $(ProjectDir)pattern $(OutDir)pattern
+if not exist $(OutDir)save mkdir $(OutDir)save</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
