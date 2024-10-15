@@ -3,6 +3,7 @@
 #include <sstream>
 
 #include "Controller.h"
+#include "Checks.h"
 #include "Board.h"
 
 namespace GameOfLife {
@@ -12,10 +13,7 @@ namespace GameOfLife {
 		stream >> mWidth >> mHeight >> mAliveCells;
 
 		// Make sure everything was read
-		if (stream.fail())
-		{
-			throw std::invalid_argument("Invalid args");
-		}
+		Checks::streamOk(stream, "Invalid args");
 	}
 
 	void InitCommand::execute(Controller* context)

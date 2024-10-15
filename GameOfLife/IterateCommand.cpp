@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Controller.h"
+#include "Checks.h"
 
 namespace GameOfLife {
 	IterateCommand::IterateCommand(std::string_view args)
@@ -18,19 +19,13 @@ namespace GameOfLife {
 		std::stringstream stream(args.data());
 
 		stream >> mIterations;
-		if (stream.fail())
-		{
-			throw std::invalid_argument("Invalid number of iterations");
-		}
+		Checks::streamOk(stream, "Invalid number of iterations");
 
 		// Only look if there is a space in the string
 		if (args.find(' ') != std::string::npos)
 		{
 			stream >> std::boolalpha >> mLoud;
-			if (stream.fail())
-			{
-				throw std::invalid_argument("Invalid loud flag");
-			}
+			Checks::streamOk(stream, "Invalid loud flag");
 		}
 	}
 
