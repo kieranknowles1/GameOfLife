@@ -8,3 +8,4 @@ export PATH="$PATH:$(pwd)/venv/bin"
 metrix++ collect --scmis --std.code.complexity.cyclomatic --std.code.lines.code GameOfLife
 metrix++ view --db-file=metrixpp.db
 
+metrix++ limit --max-limit=std.code.lines:code:15
