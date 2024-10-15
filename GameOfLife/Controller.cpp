@@ -8,23 +8,32 @@ namespace GameOfLife
 	{
 		while (!mQuitRequested)
 		{
-			std::unique_ptr<Command> input = nullptr;
+			auto command = getCommand();
+			executeCommand(command.get());
+		}
+	}
+
+	std::unique_ptr<Command> Controller::getCommand()
+	{
+		while (true)
+		{
 			try {
-				input = parseInput();
+				return parseInput();
 			}
 			catch (std::invalid_argument& e) {
-				// If the command is invalid, print to stderr and continue
 				std::cerr << e.what() << std::endl;
 				std::cerr << "Type 'help' for a list of commands" << std::endl;
-				continue;
 			}
+		}
+	}
 
-			// Input is not null, as we continued in the catch block
-			try {
-				input->execute(this);
-			} catch (std::exception& e) {
-				std::cerr << "An error occurred: " << e.what() << std::endl;
-			}
+	void Controller::executeCommand(Command* command)
+	{
+		try {
+			command->execute(this);
+		}
+		catch (std::exception& e) {
+			std::cerr << "An error occurred: " << e.what() << std::endl;
 		}
 	}
 

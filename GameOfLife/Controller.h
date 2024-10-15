@@ -50,6 +50,8 @@ namespace GameOfLife
 
 		bool mQuitRequested = false;
 
+		std::unique_ptr<Command> getCommand();
+		void executeCommand(Command* command);
 
 		std::unique_ptr<Command> parseInput();
 	};

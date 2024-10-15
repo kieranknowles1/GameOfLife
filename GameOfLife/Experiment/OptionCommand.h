@@ -25,6 +25,8 @@ namespace GameOfLife::Experiment
 		std::string mKey;
 		std::string mValue;
 
+		int* getValueRef(Parameters& params, std::string_view key);
+
 		void printOptions(Controller* context);
 		void setOption(Controller* context, std::string_view key, std::string_view value);
 	};

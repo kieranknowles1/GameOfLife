@@ -4,6 +4,7 @@
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <map>
 
 #include "Pattern.h"
 #include "ExperimentRunner.h"
@@ -32,6 +33,19 @@ namespace GameOfLife::Experiment
 		int getEfficiencyResourceNumber() const
 		{
 			return mBoardSize.x + mBoardSize.y + mInitialPopulation;
+		}
+
+		std::map<std::string_view, int*> getValuesMap()
+		{
+			return std::map<std::string_view, int*>{
+				{ "width", &mBoardSize.x },
+				{ "height", &mBoardSize.y },
+				{ "population", &mInitialPopulation },
+				{ "generations", &mMaxGenerations },
+				{ "attempts", &mMaxAttempts },
+				{ "lifetime", &mMinimumLifetime },
+				{ "threads", &mThreads }
+			};
 		}
 	};
 
