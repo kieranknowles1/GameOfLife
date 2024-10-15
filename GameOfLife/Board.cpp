@@ -14,22 +14,27 @@ namespace GameOfLife {
 			throw std::invalid_argument("aliveCells cannot be greater than the number of cells");
 		}
 
-		std::uniform_int_distribution xDist(0, size.x - 1);
-		std::uniform_int_distribution yDist(0, size.y - 1);
+		// Fill the requested number of cells randomly
+		for (int i = 0; i < aliveCells; i++)
+			placeRandom(rng);
 
-		int cellsLeft = aliveCells;
-		while (cellsLeft > 0) {
+		mInitialCells = mCells;
+	}
+
+	void Board::placeRandom(Random& rng)
+	{
+		// -1 for the edge cells
+		std::uniform_int_distribution xDist(0, mCells.getSize().x - 1);
+		std::uniform_int_distribution yDist(0, mCells.getSize().y - 1);
+
+		while (true) {
 			Vec2 pos = { xDist(rng), yDist(rng) };
-			// Don't place more than one cell in the same position
-			// The check above ensures that we don't get stuck in an infinite loop
 			if (mCells[pos] == CellState::Dead)
 			{
 				mCells[pos] = CellState::Alive;
-				--cellsLeft;
+				return;
 			}
 		}
-
-		mInitialCells = mCells;
 	}
 
 	Board::Board(Vec2 size)
@@ -103,8 +108,34 @@ namespace GameOfLife {
 		return alive;
 	}
 
+	std::string Board::getCornerDots()
+	{
+		std::string result;
+		for (int x = 0; x < mCells.getSize().x; x++)
+		{
+			result += ". ";
+		}
+		result += "."; // Add the last corner
+		return result;
+	}
+
 	std::string Board::toString()
 	{
-		return mCells.serializeBody();
+		// Alternate between dots for corners, and spaces/O for cells
+		std::string corners = getCornerDots();
+		std::string result;
+
+		for (int y = 0; y < mCells.getSize().y; y++)
+		{
+			result += corners + "\n";
+			for (int x = 0; x < mCells.getSize().x; x++)
+			{
+				result += mCells[Vec2(x, y)] == CellState::Alive ? " O" : "  ";
+			}
+			result += "\n";
+		}
+
+		result += corners; // Add the last row of corners
+		return result;
 	}
 }

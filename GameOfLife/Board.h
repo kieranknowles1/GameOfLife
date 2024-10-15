@@ -13,6 +13,8 @@ namespace GameOfLife {
 	{
 	public:
 		void fillRandom(int aliveCells, Random& rng);
+		// Randomly place a cell in an empty position
+		void placeRandom(Random& rng);
 
 		Board(Vec2 size);
 		Board(Array2D<CellState> cells, Array2D<CellState> initialCells)
@@ -41,6 +43,8 @@ namespace GameOfLife {
 	private:
 		Array2D<CellState> mInitialCells;
 		Array2D<CellState> mCells;
+
+		std::string getCornerDots();
 
 		CellState getNewState(int aliveNeighbours, CellState state);
 
