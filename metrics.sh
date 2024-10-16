@@ -4,7 +4,10 @@
 
 source venv/bin/activate
 
-metrix++ collect --scmis --std.code.complexity.cyclomatic --std.code.lines.code GameOfLife
+metrix++ collect --scmis \
+    --std.code.complexity.cyclomatic \
+    --std.code.lines.code \
+    GameOfLife
 metrix++ view --db-file=metrixpp.db
 
 metrix++ limit \

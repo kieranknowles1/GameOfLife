@@ -14,6 +14,15 @@ namespace GameOfLife
 	static constexpr char DeadCellChar = '.';
 	static constexpr char AliveCellChar = 'O';
 
+	CellState cellFromChar(char c) {
+		switch (c)
+		{
+		case DeadCellChar: return CellState::Dead;
+		case AliveCellChar: return CellState::Alive;
+		default: throw std::runtime_error("Invalid cell character: " + c);
+		}
+	}
+
 	// Specialisation of Array2D::serializeBody for CellState
 	// Defined in CPP to avoid multiple definition link error
 	template <>

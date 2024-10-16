@@ -25,14 +25,7 @@ namespace GameOfLife {
 
 			for (int x = 0; x < mSize.x; x++)
 			{
-				CellState state;
-				switch (line[x])
-				{
-				case DeadCellChar: state = CellState::Dead; break;
-				case AliveCellChar: state = CellState::Alive; break;
-				default: throw std::runtime_error("Invalid cell character in: " + line);
-				}
-				this->operator[]({ x, y }) = state;
+				this->operator[]({ x, y }) = cellFromChar(line[x]);
 			}
 		}
 	}
