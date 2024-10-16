@@ -48,6 +48,8 @@ namespace GameOfLife {
 
 		CellState getNewState(int aliveNeighbours, CellState state);
 
+		// Get whether a cell is alive. Out of bounds cells are considered dead
+		bool isAlive(Vec2 pos);
 		// Get the number of alive neighbours of a cell
 		int getAliveNeighbours(Vec2 pos);
 	};

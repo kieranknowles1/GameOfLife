@@ -82,18 +82,18 @@ namespace GameOfLife {
 			return aliveNeighbours == 2 || aliveNeighbours == 3 ? CellState::Alive : CellState::Dead;
 	}
 
+	bool Board::isAlive(Vec2 pos)
+	{
+		return mCells.isValid(pos) && mCells[pos] == CellState::Alive;
+	}
+
 	int Board::getAliveNeighbours(Vec2 pos)
 	{
 		int alive = 0;
-		for (int x = pos.x - 1; x <= pos.x + 1; x++)
-		{
-			for (int y = pos.y - 1; y <= pos.y + 1; y++)
-			{
+		for (int x = pos.x - 1; x <= pos.x + 1; x++) {
+			for (int y = pos.y - 1; y <= pos.y + 1; y++) {
 				auto neighbour = Vec2(x, y);
-				if (neighbour == pos || !mCells.isValid(neighbour))
-					continue;
-
-				if (mCells[neighbour] == CellState::Alive)
+				if (neighbour != pos && isAlive(neighbour))
 					alive++;
 			}
 		}
