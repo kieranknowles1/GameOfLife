@@ -4,7 +4,7 @@
 #include <iostream>
 
 #include "Controller.h"
-#include "Checks.h"
+#include "Serializer.h"
 
 namespace GameOfLife {
 	IterateCommand::IterateCommand(std::string_view args)
@@ -18,14 +18,13 @@ namespace GameOfLife {
 
 		std::stringstream stream(args.data());
 
-		stream >> mIterations;
-		Checks::streamOk(stream, "Invalid number of iterations");
+		mIterations = Serializer::read<int>(stream);
 
 		// Only look if there is a space in the string
 		if (args.find(' ') != std::string::npos)
 		{
-			stream >> std::boolalpha >> mLoud;
-			Checks::streamOk(stream, "Invalid loud flag");
+			stream >> std::boolalpha;
+			mLoud = Serializer::read<bool>(stream);
 		}
 	}
 

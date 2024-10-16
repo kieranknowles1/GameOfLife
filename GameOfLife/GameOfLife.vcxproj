@@ -158,7 +158,6 @@ if not exist $(OutDir)save mkdir $(OutDir)save</Command>
     <ClCompile Include="Array2D.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Cell.cpp" />
-    <ClCompile Include="Checks.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandParser.cpp" />
     <ClCompile Include="Controller.cpp" />
@@ -183,7 +182,6 @@ if not exist $(OutDir)save mkdir $(OutDir)save</Command>
     <ClInclude Include="Array2D.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Cell.h" />
-    <ClInclude Include="Checks.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandParser.h" />
     <ClInclude Include="Controller.h" />

@@ -3,17 +3,16 @@
 #include <sstream>
 
 #include "Controller.h"
-#include "Checks.h"
+#include "Serializer.h"
 #include "Board.h"
 
 namespace GameOfLife {
 	InitCommand::InitCommand(std::string_view input)
 	{
 		std::stringstream stream(input.data());
-		stream >> mWidth >> mHeight >> mAliveCells;
-
-		// Make sure everything was read
-		Checks::streamOk(stream, "Invalid args");
+		mWidth = Serializer::read<int>(stream);
+		mHeight = Serializer::read<int>(stream);
+		mAliveCells = Serializer::read<int>(stream);
 	}
 
 	void InitCommand::execute(Controller* context)

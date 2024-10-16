@@ -27,6 +27,18 @@ namespace GameOfLife {
 		static std::string getLine(std::stringstream& stream);
 		static void checkVersion(std::stringstream& stream);
 
+		// Read a value from a stream
+		template<typename T>
+		static T read(std::stringstream& stream)
+		{
+			T value;
+			stream >> value;
+			if (stream.fail()) {
+				throw std::invalid_argument("Failed to read value");
+			}
+			return value;
+		}
+
 		// Serialize the board to a string so it can be loaded later
 		static std::string serialize(Board& board);
 		// Load a board from a string
