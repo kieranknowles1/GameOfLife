@@ -14,7 +14,7 @@ namespace GameOfLife
 	static constexpr char DeadCellChar = '.';
 	static constexpr char AliveCellChar = 'O';
 
-	CellState cellFromChar(char c) {
+	static CellState cellFromChar(char c) {
 		switch (c)
 		{
 		case DeadCellChar: return CellState::Dead;
